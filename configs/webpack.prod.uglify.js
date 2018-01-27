@@ -5,7 +5,7 @@ const config = module.exports   = require("./webpack.prod");
 config.output.filename = `${ process.env.npm_package_name }.min.js`;
 
 // Find the Uglify entry and replace it with a new one
-config.plugins.forEach((pluginInstance, i) => {
+config.plugins.some((pluginInstance, i) => {
     if (pluginInstance instanceof UglifyJSPlugin) {
         config.plugins[i] = new UglifyJSPlugin({
             sourceMap: true,
@@ -13,5 +13,7 @@ config.plugins.forEach((pluginInstance, i) => {
                 comments: false
             }
         });
+
+        return true;
     }
 });

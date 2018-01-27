@@ -20,7 +20,9 @@ let config = module.exports = {
             path.resolve(CWD, "dist"),
             path.resolve(CWD, "dev")
         ],
-        port: 9598
+        port: 0,
+        open: true,
+        watchContentBase: true
     },
     resolve: {
         modules: [
@@ -28,7 +30,28 @@ let config = module.exports = {
         ]
     },
     module: {
-        rules: []
+        rules: [
+            {
+                test:   /\.js$/,
+                loader: "babel-loader",
+                options: {
+                    presets: [
+                        ["env", {
+                            modules: false,
+                            loose: true,
+                            targets: {
+                                browsers: "last 2 Chrome versions"
+                            }
+                        }]
+                    ],
+                    plugins: [
+                        ["babel-plugin-transform-builtin-classes", {
+                            "globals": ["Array", "Error", "HTMLElement"]
+                        }]
+                    ]
+                }
+            },
+        ]
     },
     plugins: []
 };

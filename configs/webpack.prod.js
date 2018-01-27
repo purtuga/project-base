@@ -3,6 +3,16 @@ const UglifyJSPlugin                = require('uglifyjs-webpack-plugin');
 const WebpackBabelExternalsPlugin   = require('webpack-babel-external-helpers-2');
 const config = module.exports       = require("./webpack.dev");
 
+config.module.rules.some((rule, i) => {
+    if (rule.loader === "babel-loader") {
+        rule.options.presets = [
+            ["env", { "modules": false, targets: { "uglify": true } }]
+        ];
+
+        return true;
+    }
+});
+
 config.plugins.push(
     new webpack.DefinePlugin({
         'process.env': {
