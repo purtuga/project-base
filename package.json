@@ -16,7 +16,7 @@
     "url": "https://github.com/purtuga/Base/issues"
   },
   "homepage": "https://github.com/purtuga/Base#readme",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-builtin-classes": "^0.6.1",
