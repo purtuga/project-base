@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "base-setup-package-scripts": "./scripts/setup-package-scripts.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/purtuga/Base.git"
