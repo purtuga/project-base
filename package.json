@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/purtuga/Base#readme",
   "dependencies": {
+    "@std/esm": "^0.19.7",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-builtin-classes": "^0.6.1",
