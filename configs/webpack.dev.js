@@ -45,6 +45,7 @@ let config = module.exports = {
                         }]
                     ],
                     plugins: [
+                        ["transform-decorators-legacy"],
                         ["babel-plugin-transform-builtin-classes", {
                             "globals": ["Array", "Error", "HTMLElement"]
                         }]

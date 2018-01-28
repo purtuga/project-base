@@ -23,10 +23,11 @@ Continue? Y|n  `, answer => {
         packageJson.scripts = {
             "serve": "webpack-dev-server --config node_modules/Base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
             "build": "webpack --config node_modules/Base/configs/webpack.dev.js",
+            "build:ie": "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev",
             "build:prod": "webpack --config node_modules/Base/configs/webpack.prod.js",
             "build:prod:min": "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
             "dist": "npm run build:prod&&npm run build:prod:min",
-            "postinstall": "node node_modules/Base/scripts/create-dev"
+            "setup:dev": "node node_modules/Base/scripts/create-dev"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
