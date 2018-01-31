@@ -1,6 +1,17 @@
 const path          = require("path");
 const CWD           = path.resolve(process.cwd());
 const PACKAGE_NAME  = process.env.npm_package_name;
+const resolveOpt    = { paths: [ CWD ] };
+
+console.log(CWD);
+
+function localResolve(preset) {
+    console.log(`Path: ${ require.resolve(preset[0], resolveOpt) }`);
+
+    return Array.isArray(preset) ?
+        [require.resolve(preset[0], resolveOpt), preset[1]] :
+        require.resolve(preset, resolveOpt);
+}
 
 let config = module.exports = {
     entry: path.join(CWD, process.env.npm_package_main),
@@ -36,20 +47,20 @@ let config = module.exports = {
                 loader: "babel-loader",
                 options: {
                     presets: [
-                        ["env", {
+                        ["babel-preset-env", {
                             modules: false,
                             loose: true,
                             targets: {
                                 browsers: "last 2 Chrome versions"
                             }
                         }]
-                    ],
+                    ].map(localResolve),
                     plugins: [
-                        ["transform-decorators-legacy"],
+                        ["babel-plugin-transform-decorators-legacy"],
                         ["babel-plugin-transform-builtin-classes", {
                             "globals": ["Array", "Error", "HTMLElement"]
                         }]
-                    ]
+                    ].map(localResolve)
                 }
             },
         ]
