@@ -63,6 +63,29 @@ let config = module.exports = {
                     ].map(localResolve)
                 }
             },
+            {
+                test: /\.less$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "less-loader"
+                ]
+            },
+            {
+                test:   /\.html$/,
+                use:    ["raw-loader"]
+            },
+            {
+                test:   /\.(eot|ttf|svg|woff|png|gif)(\?.*)?$/,
+                use:    [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 150000
+                        }
+                    }
+                ]
+            }
         ]
     },
     plugins: []
