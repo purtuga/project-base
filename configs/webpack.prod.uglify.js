@@ -18,3 +18,4 @@ config.plugins.some((pluginInstance, i) => {
         return true;
     }
 });
+
