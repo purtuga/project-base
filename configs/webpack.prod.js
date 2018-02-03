@@ -2,7 +2,6 @@ const webpack                       = require('webpack');
 const UglifyJSPlugin                = webpack.optimize.UglifyJsPlugin;
 const WebpackBabelExternalsPlugin   = require('webpack-babel-external-helpers-2');
 const config = module.exports       = require("./webpack.dev");
-const BundleAnalyzerPlugin          = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 config.module.rules.some((rule, i) => {
     if (rule.loader === "babel-loader") {
@@ -44,9 +43,5 @@ config.plugins.push(
             cascade: false,
             dead_code: true
         }
-    }),
-
-    new BundleAnalyzerPlugin({
-        generateStatsFile: true
     })
 );

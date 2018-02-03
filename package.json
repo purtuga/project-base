@@ -41,7 +41,6 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.7.1",
     "webpack-babel-external-helpers-2": "^3.0.2",
-    "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-server": "^2.11.1"
   }
 }
