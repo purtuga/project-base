@@ -3,10 +3,10 @@ const CWD           = path.resolve(process.cwd());
 const PACKAGE_NAME  = process.env.npm_package_name;
 const resolveOpt    = { paths: [ CWD ] };
 
-console.log(CWD);
+// console.log(CWD);
 
 function localResolve(preset) {
-    console.log(`Path: ${ require.resolve(preset[0], resolveOpt) }`);
+    // console.log(`Path: ${ require.resolve(preset[0], resolveOpt) }`);
 
     return Array.isArray(preset) ?
         [require.resolve(preset[0], resolveOpt), preset[1]] :

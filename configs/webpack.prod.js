@@ -1,5 +1,5 @@
 const webpack                       = require('webpack');
-const UglifyJSPlugin                = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin                = webpack.optimize.UglifyJsPlugin;
 const WebpackBabelExternalsPlugin   = require('webpack-babel-external-helpers-2');
 const config = module.exports       = require("./webpack.dev");
 
@@ -13,13 +13,15 @@ config.module.rules.some((rule, i) => {
     }
 });
 
-config.plugins.push(
+config.plugins.unshift(
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')
         }
-    }),
+    })
+);
 
+config.plugins.push(
     new WebpackBabelExternalsPlugin(/* plugin options object */),
 
     new UglifyJSPlugin({
@@ -38,7 +40,8 @@ config.plugins.push(
             hoist_funs: false,
             join_vars: false,
             if_return: false,
-            cascade: false
+            cascade: false,
+            dead_code: true
         }
     })
 );

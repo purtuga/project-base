@@ -1,5 +1,6 @@
-const UglifyJSPlugin            = require('uglifyjs-webpack-plugin');
-const config = module.exports   = require("./webpack.prod");
+const webpack           = require('webpack');
+const UglifyJSPlugin    = webpack.optimize.UglifyJsPlugin;
+const config            = module.exports = require("./webpack.prod");
 
 // change output file name
 config.output.filename = `${ process.env.npm_package_name }.min.js`;
