@@ -10,7 +10,7 @@
 //      }
 //
 //-----------------------------------------------------------------------------
-const promisify     = require("util").promisify;
+const promisify     = require("../utils/promisify");
 const fs            = require("fs");
 const path          = require("path");
 const CWD           = process.cwd();
@@ -33,8 +33,6 @@ if (fs.existsSync(devDir)) {
     process.exit(0);
 }
 
-console.log("copy template from: " + templateLoc);
-
 mkdir(devDir)
     .then(() => readDir(templateLoc))
     .then(files => {
@@ -50,6 +48,14 @@ mkdir(devDir)
                         });
                 })
         }, Promise.resolve());
+    })
+    .then(() => {
+        console.log(`
+-[ DEV SETUP ]-----------------------------------------
+    'dev/' folder was created: ${ devDir }
+    'npm run serve' can now be used to view it.
+-------------------------------------------------------
+`)
     })
     .catch(console.error);
 

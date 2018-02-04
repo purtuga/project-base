@@ -3,8 +3,12 @@
 const path = require("path");
 const fs = require("fs");
 const cwd = process.cwd();
-const promisify = require("util").promisify;
+// const promisify = require("util").promisify;
+// const writeFile = promisify(fs.writeFile);
+
+const promisify = require("../utils/promisify");
 const writeFile = promisify(fs.writeFile);
+
 const readline = require('readline');
 const packageJsonFile = path.join(cwd, "package.json");
 const packageJson = require(packageJsonFile);
