@@ -21,14 +21,14 @@ Continue? Y|n  `, answer => {
     answer = String(answer).trim().toLowerCase();
     if (answer === "y" || !answer) {
         packageJson.scripts = {
-            serve:              "webpack-dev-server --config node_modules/Base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
-            build:              "webpack --config node_modules/Base/configs/webpack.dev.js",
-            "build:ie":         "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev",
-            "build:prod":       "webpack --config node_modules/Base/configs/webpack.prod.js",
-            "build:prod:min":   "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
-            dist:               "npm run build:prod&&npm run build:prod:min",
-            "setup:dev":        "node node_modules/Base/scripts/create-dev",
-            test:               "tape ./test/**/*.js"
+            "serve": "webpack-dev-server --config node_modules/Base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
+            "build": "webpack --config node_modules/Base/configs/webpack.dev.js",
+            "build:ie": "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev",
+            "build:prod": "webpack --config node_modules/Base/configs/webpack.prod.js",
+            "build:prod:min": "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
+            "dist": "npm run build:prod&&npm run build:prod:min",
+            "setup:dev": "node node_modules/Base/scripts/create-dev",
+            "test": "tape test/**/*.js"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
