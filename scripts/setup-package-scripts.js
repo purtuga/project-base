@@ -28,7 +28,7 @@ Continue? Y|n  `, answer => {
             "build:prod:min": "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
             "dist": "npm run build:prod&&npm run build:prod:min",
             "setup:dev": "node node_modules/Base/scripts/create-dev",
-            "test": "tape test/**/*.js"
+            "test": "tape -r @std/esm test/**/*.js"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
