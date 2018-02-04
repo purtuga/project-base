@@ -36,6 +36,7 @@
     "raw-loader": "^0.5.1",
     "stats-webpack-plugin": "^0.6.2",
     "style-loader": "^0.20.1",
+    "tape": "^4.8.0",
     "text-loader": "0.0.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.7.1",
