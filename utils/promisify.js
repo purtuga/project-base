@@ -41,4 +41,4 @@ module.exports = function promisify(method) {
             method(...args);
         });
     };
-}
+};
