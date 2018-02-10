@@ -72,10 +72,27 @@ let config = module.exports = {
                 ]
             },
             {
-                test: /\.css$/,
+                test: /\.toString\.css$/,
+                use: [
+                    "to-string-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            camelCase: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /^(?!.*toString\.css$).*\.css$/,
                 use: [
                     "style-loader",
-                    "css-loader"
+                    {
+                        loader: "css-loader",
+                        options: {
+                            camelCase: true
+                        }
+                    }
                 ]
             },
             {
