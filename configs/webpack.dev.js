@@ -71,7 +71,9 @@ let config = module.exports = {
                     "less-loader"
                 ]
             },
-            {
+            {   // CSS FILES THAT SHOULD BE RETURNED BACK AS A STRING
+                // (INSTEAD OF BEING SENT/EMBEDED INTO THE PAGE AS <STYLE> TAGS
+                // IDEAL FOR USE WITH WEB COMPONENTS THAT USE SHADOW DOM
                 test: /\.toString\.css$/,
                 use: [
                     "to-string-loader",
@@ -96,7 +98,7 @@ let config = module.exports = {
                 ]
             },
             {
-                test:   /\.html$/,
+                test:   /\.(html|htm|txt)$/,
                 use:    ["raw-loader"]
             },
             {
