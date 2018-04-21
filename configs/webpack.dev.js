@@ -33,7 +33,8 @@ let config = module.exports = {
         ],
         port: 0,
         open: true,
-        watchContentBase: true
+        watchContentBase: true,
+        overlay: true
     },
     resolve: {
         modules: [
