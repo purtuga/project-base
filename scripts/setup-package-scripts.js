@@ -27,7 +27,7 @@ Continue? Y|n  `, answer => {
         packageJson.scripts = {
             "serve": "webpack-dev-server --config node_modules/Base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
             "build": "webpack --config node_modules/Base/configs/webpack.dev.js",
-            "build:ie": "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev",
+            "build:ie": "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev --output-filename ie-test-bundle.js",
             "build:prod": "webpack --config node_modules/Base/configs/webpack.prod.js",
             "build:prod:min": "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
             "build:apiDocs": "jsdoc -c node_modules/Base/configs/jsdoc.conf.json",
