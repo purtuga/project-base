@@ -25,14 +25,14 @@ Continue? Y|n  `, answer => {
     answer = String(answer).trim().toLowerCase();
     if (answer === "y" || !answer) {
         packageJson.scripts = {
-            "serve": "webpack-dev-server --config node_modules/Base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
-            "build": "webpack --config node_modules/Base/configs/webpack.dev.js",
-            "build:ie": "webpack --config node_modules/Base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev --output-filename ie-test-bundle.js",
-            "build:prod": "webpack --config node_modules/Base/configs/webpack.prod.js",
-            "build:prod:min": "webpack --config node_modules/Base/configs/webpack.prod.uglify.js",
-            "build:apiDocs": "jsdoc -c node_modules/Base/configs/jsdoc.conf.json",
+            "serve": "webpack-dev-server --config node_modules/base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
+            "build": "webpack --config node_modules/base/configs/webpack.dev.js",
+            "build:ie": "webpack --config node_modules/base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev --output-filename ie-test-bundle.js",
+            "build:prod": "webpack --config node_modules/base/configs/webpack.prod.js",
+            "build:prod:min": "webpack --config node_modules/base/configs/webpack.prod.uglify.js",
+            "build:apiDocs": "jsdoc -c node_modules/base/configs/jsdoc.conf.json",
             "dist": "npm run build:prod&&npm run build:prod:min",
-            "setup:dev": "node node_modules/Base/scripts/create-dev",
+            "setup:dev": "node node_modules/base/scripts/create-dev",
             "test": "tape -r @std/esm test/**/*.js"
         };
 
