@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/purtuga/Base.git"
+    "url": "git+https://github.com/purtuga/project-base.git"
   },
   "author": "Paul Tavares",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/purtuga/Base/issues"
+    "url": "https://github.com/purtuga/project-base/issues"
   },
   "engines": {
     "node": ">=6.0.0"
   },
-  "homepage": "https://github.com/purtuga/Base#readme",
+  "homepage": "https://github.com/purtuga/project-base#readme",
   "dependencies": {
     "@std/esm": "^0.19.7",
     "babel-core": "^6.26.0",

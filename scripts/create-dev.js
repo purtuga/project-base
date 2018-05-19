@@ -5,7 +5,7 @@
 //
 //      {
 //          scripts: {
-//              "setup:dev": "node node_modules/Base/scripts/create-dev"
+//              "setup:dev": "node node_modules/project-base/scripts/create-dev"
 //          }
 //      }
 //
