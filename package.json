@@ -1,5 +1,5 @@
 {
-  "name": "base",
+  "name": "project-base",
   "version": "1.0.0",
   "description": "My personal projects Base setup and scripts",
   "main": "index.js",
