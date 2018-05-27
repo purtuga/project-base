@@ -47,6 +47,7 @@ let config = module.exports = {
                 test:   /\.js$/,
                 loader: "babel-loader",
                 options: {
+                    babelrc: false,
                     presets: [
                         ["babel-preset-env", {
                             modules: false,
