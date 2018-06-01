@@ -29,7 +29,8 @@ let config = module.exports = {
     devServer: {
         contentBase: [ // Server content from these directories
             path.resolve(CWD, "dist"),
-            path.resolve(CWD, "dev")
+            path.resolve(CWD, "dev"),   // FIXME: remove this in the future
+            path.resolve(CWD, "my.dev")
         ],
         port: 0,
         open: true,
