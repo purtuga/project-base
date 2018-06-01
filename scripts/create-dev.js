@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Creates a "dev" folder good for development of libraries.
+// Creates a "my.dev" folder good for development of libraries.
 //
 // To use it, add the following to package.json scripts:
 //
@@ -15,7 +15,7 @@ const fs            = require("fs");
 const path          = require("path");
 const CWD           = process.cwd();
 const buildOutFile  = require("../configs/webpack.dev").output.filename;
-const devDir        = path.join(CWD, "dev");
+const devDir        = path.join(CWD, "my.dev");
 const templateLoc   = path.join(__dirname, "..", "templates", "dev");
 const readDir       = promisify(fs.readdir);
 const readFile      = promisify(fs.readFile);
@@ -25,7 +25,7 @@ const mkdir         = promisify(fs.mkdir);
 if (fs.existsSync(devDir)) {
     console.log(`
 
-    Unable to create "dev" folder - it already exists.
+    Unable to create "my.dev" folder - it already exists.
     ${ devDir }
     Exiting.
 
@@ -52,7 +52,7 @@ mkdir(devDir)
     .then(() => {
         console.log(`
 -[ DEV SETUP ]-----------------------------------------
-    'dev/' folder was created: ${ devDir }
+    'my.dev/' folder was created: ${ devDir }
     'npm run serve' can now be used to view it.
 -------------------------------------------------------
 `)
