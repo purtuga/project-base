@@ -38,6 +38,5 @@ BUILD*
 _BUILD*
 vendor
 node_modules
-dev*
 
 
