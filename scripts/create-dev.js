@@ -10,7 +10,8 @@
 //      }
 //
 //-----------------------------------------------------------------------------
-const promisify     = require("../utils/promisify");
+const promisify                 = require("../utils/promisify");
+const getFileContentAsFunction  = require("../utils/getFileContentAsFunction");
 const fs            = require("fs");
 const path          = require("path");
 const CWD           = process.cwd();
@@ -21,6 +22,7 @@ const readDir       = promisify(fs.readdir);
 const readFile      = promisify(fs.readFile);
 const writeFile     = promisify(fs.writeFile);
 const mkdir         = promisify(fs.mkdir);
+const projPackageJson   = require(path.join(CWD, "package.json"));
 
 if (fs.existsSync(devDir)) {
     console.log(`
@@ -39,13 +41,21 @@ mkdir(devDir)
         return files.reduce((whenPriorCompletes, fileName) => {
             return whenPriorCompletes
                 .then(() => {
-                    return readFile(path.join(templateLoc, fileName), "utf8")
-                        .then(fileContent => {
-                            if (fileName === "index.html") {
-                                fileContent = fileContent.replace("_____PACKAGE_NAME_____", buildOutFile);
-                            }
-                            return writeFile(path.join(devDir, fileName), fileContent);
-                        });
+                    return writeFile(
+                        path.join(devDir, fileName),
+                        getFileContentAsFunction(path.join(templateLoc, fileName))({
+                            packageJson: projPackageJson,
+                            buildOutFile
+                        })
+                    );
+
+                    // return readFile(path.join(templateLoc, fileName), "utf8")
+                    //     .then(fileContent => {
+                    //         if (fileName === "index.html") {
+                    //             fileContent = fileContent.replace("_____PACKAGE_NAME_____", buildOutFile);
+                    //         }
+                    //         return writeFile(path.join(devDir, fileName), fileContent);
+                    //     });
                 })
         }, Promise.resolve());
     })

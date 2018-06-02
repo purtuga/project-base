@@ -1,4 +1,4 @@
 export * from "../src/index"
 
-console.log("Dev playground loaded");
+console.log("${options.packageJson.name} Dev playground loaded");
 

@@ -5,11 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dev Playground</title>
+    <title>${options.packageJson.name} Dev</title>
 </head>
 <body>
-    <h1>Dev Playground</h1>
+    <h1>${options.packageJson.name}</h1>
     <div>Loaded: <script>document.write((new Date()).toLocaleString())</script></div>
-    <script src="_____PACKAGE_NAME_____"></script>
+    <script src="${options.buildOutFile}"></script>
 </body>
 </html>
