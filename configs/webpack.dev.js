@@ -1,7 +1,14 @@
 const path          = require("path");
+const webpack       = require('webpack');
 const CWD           = path.resolve(process.cwd());
-const PACKAGE_NAME  = process.env.npm_package_name;
 const resolveOpt    = { paths: [ CWD ] };
+
+const PACKAGE_NAME      = process.env.npm_package_name;
+const PACKAGE_VERSION   = process.env.npm_package_version;
+const PACKAGE_LICENSE   = project.env.npm_package_license;
+const PACKAGE_AUTHOR    = project.env.npm_package_author;
+
+const GIT_HASH = require("../scripts/getGitHash")();
 
 // console.log(CWD);
 
@@ -117,5 +124,16 @@ let config = module.exports = {
             }
         ]
     },
-    plugins: []
+    plugins: [
+        new webpack.DefinePlugin({
+            "BUILD.DATA": {
+                VERSION:    JSON.stringify(PACKAGE_VERSION),
+                AUTHOR:     JSON.stringify(PACKAGE_AUTHOR),
+                LICENSE:    JSON.stringify(PACKAGE_LICENSE),
+                NAME:       JSON.stringify(PACKAGE_NAME),
+                TIMESTAMP:  Date.now(),
+                HASH:       JSON.stringify(GIT_HASH)
+            }
+        }),
+    ]
 };
