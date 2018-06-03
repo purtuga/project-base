@@ -105,7 +105,7 @@ let config = module.exports = {
                 use:    ["raw-loader"]
             },
             {
-                test:   /\.(eot|ttf|svg|woff|png|gif)(\?.*)?$/,
+                test:   /\.(eot|ttf|svg|woff|woff2|png|gif)(\?.*)?$/,
                 use:    [
                     {
                         loader: 'url-loader',
