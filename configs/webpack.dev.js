@@ -5,8 +5,8 @@ const resolveOpt    = { paths: [ CWD ] };
 
 const PACKAGE_NAME      = process.env.npm_package_name;
 const PACKAGE_VERSION   = process.env.npm_package_version;
-const PACKAGE_LICENSE   = project.env.npm_package_license;
-const PACKAGE_AUTHOR    = project.env.npm_package_author;
+const PACKAGE_LICENSE   = process.env.npm_package_license;
+const PACKAGE_AUTHOR    = process.env.npm_package_author;
 
 const GIT_HASH = require("../scripts/getGitHash")();
 
