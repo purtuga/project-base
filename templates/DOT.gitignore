@@ -28,6 +28,22 @@ RCS
 RCSLOG
 SCCS
 _$*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+
+# next.js build output
+.next
+
 .settings*
 .project*
 .idea

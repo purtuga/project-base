@@ -21,6 +21,7 @@ function localResolve(preset) {
 }
 
 let config = module.exports = {
+    mode: "development",
     entry: path.join(CWD, process.env.npm_package_main),
     output: {
         // Library Name === package.json#name as CameCase.
