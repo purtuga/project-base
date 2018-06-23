@@ -1,5 +1,5 @@
 const webpack                       = require('webpack');
-const UglifyJSPlugin                = webpack.optimize.UglifyJsPlugin;
+const UglifyJsPlugin                = require('uglifyjs-webpack-plugin');
 const StatsPlugin                   = require('stats-webpack-plugin');
 const config                        = module.exports = require("./webpack.dev");
 
@@ -29,7 +29,7 @@ config.plugins.unshift(
 config.plugins.push(
     // new WebpackBabelExternalsPlugin(/* plugin options object */),
 
-    new UglifyJSPlugin({
+    new UglifyJsPlugin({
         sourceMap: true,
         comments: true,
         beautify: true,

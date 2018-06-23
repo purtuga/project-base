@@ -1,6 +1,6 @@
 {
   "name": "project-base",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.1",
   "description": "My personal projects Base setup and scripts",
   "main": "index.js",
   "scripts": {
