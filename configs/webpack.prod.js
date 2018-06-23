@@ -6,6 +6,10 @@ const config                        = module.exports = require("./webpack.dev");
 //----------------------------------------------------------------------
 
 config.mode = "production";
+
+if (!config.optimization) {
+    config.optimization = {};
+}
 config.optimization.minimize = false;
 
 config.module.rules.some((rule, i) => {
@@ -31,22 +35,23 @@ config.plugins.push(
 
     new UglifyJsPlugin({
         sourceMap: true,
-        comments: true,
-        beautify: true,
-        mangle: false,
-        compress: {
-            warnings: false,
-            collapse_vars: false,
-            sequences: false,
-            // conditionals: false,
-            comparisons: false,
-            booleans: false,
-            //evaluate:       false,
-            hoist_funs: false,
-            join_vars: false,
-            if_return: false,
-            cascade: false,
-            dead_code: true
+        uglifyOptions: {
+            compress: {
+                warnings: false,
+                collapse_vars: false,
+                sequences: false,
+                comparisons: false,
+                booleans: false,
+                hoist_funs: false,
+                join_vars: false,
+                if_return: false,
+                dead_code: true
+            },
+            mangle: false,
+            output: {
+                beautify: true,
+                comments: true
+            }
         }
     }),
 

@@ -1,4 +1,3 @@
-const webpack           = require('webpack');
 const UglifyJsPlugin    = require('uglifyjs-webpack-plugin');
 const config            = module.exports = require("./webpack.prod");
 
@@ -10,8 +9,10 @@ config.plugins.some((pluginInstance, i) => {
     if (pluginInstance instanceof UglifyJsPlugin) {
         config.plugins[i] = new UglifyJsPlugin({
             sourceMap: true,
-            output: {
-                comments: false
+            uglifyOptions: {
+                output: {
+                    comments: false
+                }
             }
         });
 
