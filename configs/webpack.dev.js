@@ -47,7 +47,8 @@ let config = module.exports = {
     },
     resolve: {
         modules: [
-            path.resolve(CWD, "node_modules")
+            path.resolve(CWD, "node_modules"),
+            "node_modules"
         ]
     },
     module: {

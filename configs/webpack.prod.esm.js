@@ -1,8 +1,12 @@
 const config = module.exports = require("./webpack.prod");
+const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 
 //----------------------------------------------------------------------
-// change output file name
+
+// Change output config
 config.output.filename = `${ process.env.npm_package_name }.mjs`;
+config.output.library = "__LIB";
+config.output.libraryTarget = "var";
 
 // Target last 2 version of firefox for code transpilation
 config.module.rules.some((rule, i) => {
@@ -23,5 +27,42 @@ config.module.rules.some((rule, i) => {
     }
 });
 
-// Don't use my polifills in final package - use globals instead
-// FIXME: intercept polyfills - server globals
+// Insert the ESM plugin - at the top of the list
+config.plugins.unshift(new EsmWebpackPlugin());
+
+// For all polyfills provided via `common-micro-libs`,
+// replace them with the runtime Global
+if (!config.externals) {
+    config.externals = [];
+}
+const IS_COMMON_MICRO_LIB = /common-micro-libs/;
+config.externals.push(function (context, request, callback) {
+    if (IS_COMMON_MICRO_LIB.test(context) || IS_COMMON_MICRO_LIB.test(request)) {
+        // Map polyfill
+        if (/\/(es6-Map|Map)(\.js)?$/.test(request)) {
+            return callback(null, "root Map");
+        }
+
+        // Set polyfill
+        if (/\/(es6-Set|Set)(\.js)?$/.test(request)) {
+            return callback(null, "root Set");
+        }
+
+        // Set polyfill
+        if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
+            return callback(null, "root Promise");
+        }
+
+        // Symbol polyfill
+        if (/\/Symbol(\.js)?$/.test(request)) {
+            return callback(null, "root Symbol");
+        }
+
+        // WeakMap polyfill
+        if (/\/WeakMap(\.js)?$/.test(request)) {
+            return callback(null, "root WeakMap");
+        }
+    }
+
+    callback();
+});

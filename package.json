@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/purtuga/project-base#readme",
   "dependencies": {
+    "@purtuga/esm-webpack-plugin": "^1.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-builtin-classes": "^0.6.1",
