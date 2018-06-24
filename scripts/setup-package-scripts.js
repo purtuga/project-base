@@ -26,6 +26,7 @@ Continue? Y|n  `, answer => {
     if (answer === "y" || !answer) {
         packageJson.scripts = {
             "serve": "webpack-dev-server --config node_modules/project-base/configs/webpack.dev.js --progress --hot --color --entry ./my.dev/index.js",
+            "src:lint": "eslint --config ./node_modules/project-base/configs/eslint.config.js src/**",
             "build": "webpack --config node_modules/project-base/configs/webpack.dev.js",
             "build:ie": "webpack --config node_modules/project-base/configs/webpack.prod.js --entry ./my.dev/index.js --output-path ./my.dev --output-filename ie-test-bundle.js",
             "build:prod": "webpack --config node_modules/project-base/configs/webpack.prod.js",

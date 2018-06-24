@@ -53,6 +53,21 @@ let config = module.exports = {
     },
     module: {
         rules: [
+            //---------------------------------[  pre loaders ]--
+            {
+                enforce: "pre",
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                loader: "eslint-loader",
+                options: {
+                    configFile: path.resolve(__dirname, "eslint.config.js"),
+                    cache: true,
+                    parser: "babel-eslint"
+                }
+            },
+
+
+            //---------------------------------[ normal loaders ]--
             {
                 test:   /\.js$/,
                 loader: "babel-loader",
