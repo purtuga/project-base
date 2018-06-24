@@ -60,7 +60,6 @@ let config = module.exports = {
                 exclude: /node_modules/,
                 loader: "eslint-loader",
                 options: {
-                    configFile: path.resolve(__dirname, "eslint.config.js"),
                     cache: true,
                     parser: "babel-eslint"
                 }
