@@ -36,7 +36,7 @@ Continue? Y|n  `, answer => {
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
             "dist": "npm run build:prod&&npm run build:prod:min&&npm run build:prod:esm&&npm run build:prod:esm:min",
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
-            "test": "tape -r @std/esm test/**/*.js"
+            "test": "tape -r esm test/**/*.js"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {

@@ -1,10 +1,11 @@
 const config = module.exports = require("./webpack.prod");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 //----------------------------------------------------------------------
 
 // Change output config
-config.output.filename = `${ process.env.npm_package_name }.mjs`;
+config.output.filename = `${ process.env.npm_package_name }.esm.js`;
 config.output.library = "__LIB";
 config.output.libraryTarget = "var";
 
@@ -65,4 +66,35 @@ config.externals.push(function (context, request, callback) {
     }
 
     callback();
+});
+
+// Adjust Uglify minifier options
+config.optimization.minimizer.some((pluginInstance, i) => {
+    if (pluginInstance instanceof UglifyJsPlugin) {
+        config.optimization.minimizer[i] = new UglifyJsPlugin({
+            test: /\.m?js$/,
+            sourceMap: true,
+            uglifyOptions: {
+                ecma: 6,
+                compress: {
+                    warnings: false,
+                    collapse_vars: false,
+                    sequences: false,
+                    comparisons: false,
+                    booleans: false,
+                    hoist_funs: false,
+                    join_vars: false,
+                    if_return: false,
+                    dead_code: true
+                },
+                mangle: false,
+                output: {
+                    beautify: true,
+                    comments: true
+                }
+            }
+        });
+
+        return true;
+    }
 });
