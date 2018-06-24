@@ -7,11 +7,6 @@ const config                        = module.exports = require("./webpack.dev");
 
 config.mode = "production";
 
-if (!config.optimization) {
-    config.optimization = {};
-}
-config.optimization.minimize = false;
-
 config.module.rules.some((rule, i) => {
     if (rule.loader === "babel-loader") {
         rule.options.presets = [
@@ -30,30 +25,37 @@ config.plugins.unshift(
     })
 );
 
-config.plugins.push(
-    // new WebpackBabelExternalsPlugin(/* plugin options object */),
-
-    new UglifyJsPlugin({
-        sourceMap: true,
-        uglifyOptions: {
-            compress: {
-                warnings: false,
-                collapse_vars: false,
-                sequences: false,
-                comparisons: false,
-                booleans: false,
-                hoist_funs: false,
-                join_vars: false,
-                if_return: false,
-                dead_code: true
-            },
-            mangle: false,
-            output: {
-                beautify: true,
-                comments: true
-            }
+// Using Uglify but not really minimizing code will result in a
+// bundle that is "tree shaken"
+if (!config.optimization) {
+    config.optimization = {};
+}
+if (!config.optimization.minimizer) {
+    config.optimization.minimizer = [];
+}
+config.optimization.minimizer.push(new UglifyJsPlugin({
+    sourceMap: true,
+    uglifyOptions: {
+        compress: {
+            warnings: false,
+            collapse_vars: false,
+            sequences: false,
+            comparisons: false,
+            booleans: false,
+            hoist_funs: false,
+            join_vars: false,
+            if_return: false,
+            dead_code: true
+        },
+        mangle: false,
+        output: {
+            beautify: true,
+            comments: true
         }
-    }),
+    }
+}));
 
+
+config.plugins.push(
     new StatsPlugin("../me.stats.json")
 );

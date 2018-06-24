@@ -30,8 +30,10 @@ Continue? Y|n  `, answer => {
             "build:ie": "webpack --config node_modules/project-base/configs/webpack.prod.js --entry ./my.dev/index.js --output-path ./my.dev --output-filename ie-test-bundle.js",
             "build:prod": "webpack --config node_modules/project-base/configs/webpack.prod.js",
             "build:prod:min": "webpack --config node_modules/project-base/configs/webpack.prod.uglify.js",
+            "build:prod:esm": "webpack --config node_modules/project-base/configs/webpack.prod.esm.js",
+            "build:prod:esm:min": "webpack --config node_modules/project-base/configs/webpack.prod.esm.minified.js",
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
-            "dist": "npm run build:prod&&npm run build:prod:min",
+            "dist": "npm run build:prod&&npm run build:prod:min&&npm run build:prod:esm&&npm run build:prod:esm:min",
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
             "test": "tape -r @std/esm test/**/*.js"
         };
