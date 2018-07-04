@@ -1,22 +1,10 @@
-const UglifyJsPlugin    = require('uglifyjs-webpack-plugin');
-const config            = module.exports = require("./webpack.prod");
+console.error(`
+=================================================================
+ webpack.prod.uglify.js config no longer used. Minified version
+ is now created at the same time as regular bundle.
 
-// change output file name
-config.output.filename = `${ process.env.npm_package_name }.min.js`;
+ Remove 'package.script' defintion (build:prod:min).
+=================================================================
+`);
 
-// Find the Uglify entry and replace it with a new one
-config.optimization.minimizer.some((pluginInstance, i) => {
-    if (pluginInstance instanceof UglifyJsPlugin) {
-        config.optimization.minimizer[i] = new UglifyJsPlugin({
-            sourceMap: true,
-            uglifyOptions: {
-                output: {
-                    comments: false
-                }
-            }
-        });
-
-        return true;
-    }
-});
-
+// FIXME: REMOVE THIS FILE ON NEXT MAJOR VERSION

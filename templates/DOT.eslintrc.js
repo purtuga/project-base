@@ -1,1 +1,1 @@
-module.exports = require("./node_modules/project-base/configs/eslint.config");
+module.exports = require("project-base/configs/eslint.config");

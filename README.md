@@ -17,7 +17,7 @@ Other things that should be added to package.json:
 
 ```json
 {
-    "@std/esm": { "cjs": true, "esm": "js" }
+    "esm": { "mode": "auto" }
 }
 ```
 
@@ -31,13 +31,4 @@ Bleeding edge... Everything happens here first and then tagged into a version at
 
 Stable version... Project (for the most part) should reference these. When a version becomes "old", warnings will be added and seen during builds.
 
-
-
-# TODOs
-
-- [ ] Add std/esm setup to to package config script
-- [ ] Create "master" CLI script with menu system
-- [ ] Add build config to output JS Module (.mjs)
-- [ ] Add build config to output bundle with no polyfills
-- [ ] Add eslint/prettier setup
 

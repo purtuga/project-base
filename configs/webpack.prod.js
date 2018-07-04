@@ -1,61 +1,94 @@
-const webpack                       = require('webpack');
-const UglifyJsPlugin                = require('uglifyjs-webpack-plugin');
-const StatsPlugin                   = require('stats-webpack-plugin');
-const config                        = module.exports = require("./webpack.dev");
+const webpack           = require('webpack');
+const UglifyJsPlugin    = require('uglifyjs-webpack-plugin');
+const StatsPlugin       = require('stats-webpack-plugin');
+const devConfig         = require("./webpack.dev");
 
 //----------------------------------------------------------------------
 
-config.mode = "production";
+function getProdConfig(minified) {
+    const prodConfig = devConfig.getDevConfig();
 
-config.module.rules.some((rule, i) => {
-    if (rule.loader === "babel-loader") {
-        rule.options.presets = [
-            ["env", { "modules": false, targets: { "uglify": true } }]
-        ];
+    prodConfig.mode = "production";
 
-        return true;
+    if (minified) {
+        prodConfig.output.filename = `${ process.env.npm_package_name }.min.js`;
     }
-});
 
-config.plugins.unshift(
-    new webpack.DefinePlugin({
-        'process.env': {
-            'NODE_ENV': JSON.stringify('production')
-        }
-    })
-);
+    prodConfig.module.rules.some((rule, i) => {
+        if (rule.loader === "babel-loader") {
+            rule.options.presets = [
+                ["env", { "modules": false, targets: { "uglify": true } }]
+            ];
 
-// Using Uglify but not really minimizing code will result in a
-// bundle that is "tree shaken"
-if (!config.optimization) {
-    config.optimization = {};
-}
-if (!config.optimization.minimizer) {
-    config.optimization.minimizer = [];
-}
-config.optimization.minimizer.push(new UglifyJsPlugin({
-    sourceMap: true,
-    uglifyOptions: {
-        compress: {
-            warnings: false,
-            collapse_vars: false,
-            sequences: false,
-            comparisons: false,
-            booleans: false,
-            hoist_funs: false,
-            join_vars: false,
-            if_return: false,
-            dead_code: true
-        },
-        mangle: false,
-        output: {
-            beautify: true,
-            comments: true
+            return true;
         }
+    });
+
+    prodConfig.plugins.unshift(
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
+    );
+
+    // Using Uglify but not really minimizing code will result in a
+    // bundle that is "tree shaken"
+    if (!prodConfig.optimization) {
+        prodConfig.optimization = {};
     }
-}));
+
+    prodConfig.optimization.minimizer = [];
+
+    if (minified) {
+        prodConfig.optimization.minimizer.push(new UglifyJsPlugin({
+            sourceMap: true,
+            uglifyOptions: {
+                output: {
+                    comments: false
+                }
+            }
+        }));
+    }
+    else {
+        prodConfig.optimization.minimizer.push(new UglifyJsPlugin({
+            sourceMap: true,
+            uglifyOptions: {
+                compress: {
+                    warnings: false,
+                    collapse_vars: false,
+                    sequences: false,
+                    comparisons: false,
+                    booleans: false,
+                    hoist_funs: false,
+                    join_vars: false,
+                    if_return: false,
+                    dead_code: true
+                },
+                mangle: false,
+                output: {
+                    beautify: true,
+                    comments: true
+                }
+            }
+        }));
+    }
+
+    prodConfig.plugins.push(
+        new StatsPlugin("../me.stats.json")
+    );
+
+    return prodConfig;
+}
 
 
-config.plugins.push(
-    new StatsPlugin("../me.stats.json")
-);
+//------------------------------------------------[   EXPORTS   ]-------------
+module.exports = [
+    // Non-minimized version
+    getProdConfig(),
+
+    // Minimized version
+    getProdConfig(true)
+];
+Object.defineProperty(module.exports, `getProdConfig`, {value: getProdConfig});
+
