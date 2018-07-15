@@ -7,7 +7,8 @@ const devConfig             = require("./webpack.dev");
 //----------------------------------------------------------------------
 const plugins = [];
 
-if (process.env.npm_package_project_base_build_with_web_components_polyfill) {
+if (process.env.npm_package_project_base_build_with_web_components_polyfill === "true") {
+    console.log("[INFO][project-base] Adding Web Components Polyfill wrapper");
     plugins.push(new WebComponentsPolyfill());
 }
 
@@ -75,7 +76,7 @@ function getProdConfig(minified, defaultSetup) {
                 mangle: false,
                 output: {
                     beautify: true,
-                    comments: true
+                    comments: false
                 }
             }
         }));

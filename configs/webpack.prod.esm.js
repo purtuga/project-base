@@ -105,7 +105,7 @@ function getProdEsmConfig(minified) {
                         mangle: false,
                         output: {
                             beautify: true,
-                            comments: true
+                            comments: false
                         }
                     }
                 });
