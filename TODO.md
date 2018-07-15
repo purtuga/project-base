@@ -7,5 +7,6 @@
 - [x] Introduce eslint
     - [x] Add support to webpack Rules
     - [x] Add support to package scripts to run standalone
+- [x] Add new package script to run eslint with adn without --fix
 - [ ] Introduce prettier (??)
 - [ ] Introduce project-base-init script: initialize a new project (maybe a yo generator?)
