@@ -12,7 +12,7 @@ if (process.env.npm_package_project_base_build_with_web_components_polyfill) {
 }
 
 
-function getProdConfig(minified) {
+function getProdConfig(minified, defaultSetup) {
     const prodConfig = devConfig.getDevConfig();
 
     prodConfig.mode = "production";
@@ -82,9 +82,14 @@ function getProdConfig(minified) {
     }
 
     prodConfig.plugins.push(
-        new StatsPlugin("../me.stats.json"),
-        ...plugins
+        new StatsPlugin("../me.stats.json")
     );
+
+    // If not getting the default setup, then add the
+    // conditional items based on user settings
+    if (!defaultSetup) {
+        prodConfig.plugins.push(...plugins);
+    }
 
     return prodConfig;
 }

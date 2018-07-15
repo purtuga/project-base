@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 //----------------------------------------------------------------------
 
 function getProdEsmConfig(minified) {
-    const prodEsmConfig = prodConfig.getProdConfig();
+    const prodEsmConfig = prodConfig.getProdConfig(false, true);
 
     prodEsmConfig.output.filename = `${ process.env.npm_package_name }.esm${ minified ? ".min" : ""}.js`;
     prodEsmConfig.output.library = "__LIB";
