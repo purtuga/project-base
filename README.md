@@ -21,6 +21,19 @@ Other things that should be added to package.json:
 }
 ```
 
+## Configuration
+
+Configuration is done via the `project-base` entry in `package.json`. The following are supported:
+
+```json
+{
+    "package-base": {
+        "build-with-web-components-polyfill": true
+    }
+}
+```
+
+
 ## Branches
 
 ### Master

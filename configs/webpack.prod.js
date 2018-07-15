@@ -1,9 +1,16 @@
-const webpack           = require('webpack');
-const UglifyJsPlugin    = require('uglifyjs-webpack-plugin');
-const StatsPlugin       = require('stats-webpack-plugin');
-const devConfig         = require("./webpack.dev");
+const webpack               = require('webpack');
+const UglifyJsPlugin        = require('uglifyjs-webpack-plugin');
+const StatsPlugin           = require('stats-webpack-plugin');
+const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
+const devConfig             = require("./webpack.dev");
 
 //----------------------------------------------------------------------
+const plugins = [];
+
+if (process.env.npm_package_project_base_build_with_web_components_polyfill) {
+    plugins.push(new WebComponentsPolyfill());
+}
+
 
 function getProdConfig(minified) {
     const prodConfig = devConfig.getDevConfig();
@@ -75,7 +82,8 @@ function getProdConfig(minified) {
     }
 
     prodConfig.plugins.push(
-        new StatsPlugin("../me.stats.json")
+        new StatsPlugin("../me.stats.json"),
+        ...plugins
     );
 
     return prodConfig;
