@@ -4,6 +4,8 @@
 - [x] Move Uglify plugin to `optimization.minimise`
 - [x] Add webpack configuration to output .mjs (ESM)
 - [ ] Introduce support for configuration via package.json `project-base`
+    - [X] Option to wrap bundle with WC loader
+    - [ ] Option to set build to NOT expose globals (app mode)
 - [x] Introduce eslint
     - [x] Add support to webpack Rules
     - [x] Add support to package scripts to run standalone
