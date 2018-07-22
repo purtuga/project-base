@@ -2,7 +2,9 @@ const webpack               = require('webpack');
 const UglifyJsPlugin        = require('uglifyjs-webpack-plugin');
 const StatsPlugin           = require('stats-webpack-plugin');
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
+const WrapperPlugin         = require('wrapper-webpack-plugin');
 const devConfig             = require("./webpack.dev");
+const globalScoping         = require("../lib/browser.scope.globals");
 
 //----------------------------------------------------------------------
 const plugins = [];
@@ -95,6 +97,15 @@ function getProdConfig(minified, defaultSetup) {
     if (!defaultSetup) {
         prodConfig.plugins.push(...plugins);
     }
+
+    // Add final set of plugins
+    prodConfig.plugins.push(
+        new WrapperPlugin({
+            test:   /\.js$/,
+            header: globalScoping.header,
+            footer: globalScoping.footer
+        })
+    );
 
     return prodConfig;
 }
