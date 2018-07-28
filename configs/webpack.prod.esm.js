@@ -1,6 +1,8 @@
 const prodConfig = require("./webpack.prod");
+const webpack = require("webpack");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
 
 //----------------------------------------------------------------------
 
@@ -30,8 +32,16 @@ function getProdEsmConfig(minified) {
         }
     });
 
-    // Insert the ESM plugin - at the top of the list
-    prodEsmConfig.plugins.unshift(new EsmWebpackPlugin());
+    // Re-defined the plugins
+    prodEsmConfig.plugins = [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new EsmWebpackPlugin(),
+        new StatsPlugin("../me.stats.json")
+    ];
 
     // For all polyfills provided via `common-micro-libs`,
     // replace them with the runtime Global
