@@ -15,6 +15,15 @@ if (process.env.npm_package_project_base_build_with_web_components_polyfill === 
 }
 
 
+/**
+ *
+ * @param {Boolean} [minified=false]
+ *  return the Minified setup.
+ *
+ * @param {Boolean} [defaultSetup=false]
+ *  When set to `true`, then the default prod. configuration will be returned.
+ *  No additional setup is added to it based on package.json entries.
+ */
 function getProdConfig(minified, defaultSetup) {
     const prodConfig = devConfig.getDevConfig();
 
