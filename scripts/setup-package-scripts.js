@@ -34,7 +34,7 @@ Continue? Y|n  `, answer => {
             "build:prod:esm": "webpack --config node_modules/project-base/configs/webpack.prod.esm.js",
             "build:prod:esm:min": "webpack --config node_modules/project-base/configs/webpack.prod.esm.minified.js",
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
-            "dist": "npm run build:prod&&npm run build:prod:min&&npm run build:prod:esm&&npm run build:prod:esm:min",
+            "dist": "npm run build:prod&&npm run build:prod:esm",
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
             "test": "tape -r esm test/**/*.js",
             "lint": "eslint src/**/*.js",
