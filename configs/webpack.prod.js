@@ -50,30 +50,37 @@ function getProdConfig(minified, defaultSetup) {
     }
     const IS_COMMON_MICRO_LIB = /common-micro-libs/;
     prodConfig.externals.push(function (context, request, callback) {
+        // 2018-10-07
+        // About the Exports below: Because the polyfills from common-micro-libs are available
+        // as both named exports as well as default, we need to ensure that the Global defined
+        // within the Webpack bundle can find the named exports. To do this, we assign the
+        // global to a property on that gobal by the same name.
+        // An alternative might have been to use the Webpack internal definition for transpiled
+        // Modules: `{ default: WeakMap, WeakMap: WeakMap, __esModule: true}`
         if (IS_COMMON_MICRO_LIB.test(context) || IS_COMMON_MICRO_LIB.test(request)) {
             // Map polyfill
             if (/\/(es6-Map|Map)(\.js)?$/.test(request)) {
-                return callback(null, "root Map");
+                return callback(null, "root (Map.Map = Map)");
             }
 
             // Set polyfill
             if (/\/(es6-Set|Set)(\.js)?$/.test(request)) {
-                return callback(null, "root Set");
+                return callback(null, "root (Set.Set = Set)");
             }
 
             // Set polyfill
             if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
-                return callback(null, "root Promise");
+                return callback(null, "root (Promise.Promise = Promise");
             }
 
             // Symbol polyfill
             if (/\/Symbol(\.js)?$/.test(request)) {
-                return callback(null, "root Symbol");
+                return callback(null, "root (Symbol.Symbol = Symbol)");
             }
 
             // WeakMap polyfill
             if (/\/WeakMap(\.js)?$/.test(request)) {
-                return callback(null, "root WeakMap");
+                return callback(null, "root (WeakMap.WeakMap = WeakMap)");
             }
         }
 

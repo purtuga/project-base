@@ -99,3 +99,10 @@ Bleeding edge... Everything happens here first and then tagged into a version at
 Stable version... Project (for the most part) should reference these. When a version becomes "old", warnings will be added and seen during builds.
 
 
+
+## Transition / Migration
+
+### To v2.x
+
+-   Default output is now ES6 code. ES5 transpiled code is output as a file named `*.legacy.*`
+
