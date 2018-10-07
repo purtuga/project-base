@@ -2,15 +2,28 @@
  * Webpack setup that builds a web component.
  * Adds the WebComponentsPolyfill plugin to the config.
  */
-
+const path = require("path");
 
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
-const getProdConfig = require("./webpack.prod").getProdConfig;
+const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
+const wcConfig = module.exports = require("./webpack.prod.esm");
+const removeEsmPlugin = (plugin, i, arr) => {
+    if (plugin instanceof EsmWebpackPlugin) {
+        arr.splice(i, 1);
+        return true;
+    }
+};
 
-module.exports = [
-    getProdConfig(false, true),
-    getProdConfig(true, true)
-];
+// Default Entry file to `src/import.js`
+wcConfig[0].entry = wcConfig[1].entry = path.join(process.cwd(), "src", "import.js");
 
-module.exports[0].plugins.push(new WebComponentsPolyfill());
-module.exports[1].plugins.push(new WebComponentsPolyfill());
+// Rename output bundles to include word `import`
+wcConfig[0].output.filename = `${ process.env.npm_package_name }.import.js`;
+wcConfig[1].output.filename = `${ process.env.npm_package_name }.import.min.js`;
+
+// remove the ESM plugin
+wcConfig[0].plugins.some(removeEsmPlugin);
+wcConfig[1].plugins.some(removeEsmPlugin);
+
+wcConfig[0].plugins.push(new WebComponentsPolyfill());
+wcConfig[1].plugins.push(new WebComponentsPolyfill());

@@ -2,7 +2,6 @@ const devConfig = require("./webpack.dev");
 const prodConfig = require("./webpack.prod");
 const webpack = require("webpack");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 
 //----------------------------------------------------------------------
@@ -13,25 +12,6 @@ function getProdEsmConfig(minified) {
     prodEsmConfig.output.filename = `${ process.env.npm_package_name }.esm${ minified ? ".min" : ""}.js`;
     prodEsmConfig.output.library = "__LIB";
     prodEsmConfig.output.libraryTarget = "var";
-
-    // Target last 2 version of firefox for code transpilation
-    prodEsmConfig.module.rules.some((rule, i) => {
-        if (rule.loader === "babel-loader") {
-            rule.options.presets = [
-                [
-                    "env",
-                    {
-                        modules: false,
-                        targets: {
-                            browsers: "last 2 Firefox versions"
-                        }
-                    }
-                ]
-            ];
-
-            return true;
-        }
-    });
 
     // Re-defined the plugins
     prodEsmConfig.plugins = [
