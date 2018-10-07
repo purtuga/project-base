@@ -33,22 +33,6 @@ function getProdConfig(minified, defaultSetup) {
         prodConfig.output.filename = `${ process.env.npm_package_name }.min.js`;
     }
 
-    // prodConfig.module.rules.some((rule, i) => {
-    //     if (rule.loader === "babel-loader") {
-    //         rule.options.presets = [
-    //             ["env", { "modules": false, targets: { "uglify": true } }]
-    //         ];
-    //         rule.options.plugins.push(
-    //             [   // FIXME: remove this with babel 7 (its fixed there)
-    //                 "babel-plugin-transform-builtin-classes",
-    //                 { "globals": ["Array", "Error", "HTMLElement"] }
-    //             ]
-    //         );
-    //
-    //         return true;
-    //     }
-    // });
-
     prodConfig.plugins.unshift(
         new webpack.DefinePlugin({
             'process.env': {

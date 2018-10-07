@@ -1,3 +1,4 @@
+const devConfig = require("./webpack.dev");
 const prodConfig = require("./webpack.prod");
 const webpack = require("webpack");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
@@ -7,7 +8,7 @@ const StatsPlugin = require('stats-webpack-plugin');
 //----------------------------------------------------------------------
 
 function getProdEsmConfig(minified) {
-    const prodEsmConfig = prodConfig.getProdConfig(false, true);
+    const prodEsmConfig = prodConfig.getProdConfig(minified, true);
 
     prodEsmConfig.output.filename = `${ process.env.npm_package_name }.esm${ minified ? ".min" : ""}.js`;
     prodEsmConfig.output.library = "__LIB";
@@ -39,91 +40,10 @@ function getProdEsmConfig(minified) {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
+        ...devConfig.getDevConfig().plugins,
         new EsmWebpackPlugin(),
         new StatsPlugin("../me.stats.json")
     ];
-
-    // For all polyfills provided via `common-micro-libs`,
-    // replace them with the runtime Global
-    if (!prodEsmConfig.externals) {
-        prodEsmConfig.externals = [];
-    }
-    const IS_COMMON_MICRO_LIB = /common-micro-libs/;
-    prodEsmConfig.externals.push(function (context, request, callback) {
-        if (IS_COMMON_MICRO_LIB.test(context) || IS_COMMON_MICRO_LIB.test(request)) {
-            // Map polyfill
-            if (/\/(es6-Map|Map)(\.js)?$/.test(request)) {
-                return callback(null, "root Map");
-            }
-
-            // Set polyfill
-            if (/\/(es6-Set|Set)(\.js)?$/.test(request)) {
-                return callback(null, "root Set");
-            }
-
-            // Set polyfill
-            if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
-                return callback(null, "root Promise");
-            }
-
-            // Symbol polyfill
-            if (/\/Symbol(\.js)?$/.test(request)) {
-                return callback(null, "root Symbol");
-            }
-
-            // WeakMap polyfill
-            if (/\/WeakMap(\.js)?$/.test(request)) {
-                return callback(null, "root WeakMap");
-            }
-        }
-
-        callback();
-    });
-
-    // Adjust Uglify minifier options
-    prodEsmConfig.optimization.minimizer.some((pluginInstance, i) => {
-        if (pluginInstance instanceof UglifyJsPlugin) {
-            if (minified) {
-                prodEsmConfig.optimization.minimizer[i] = new UglifyJsPlugin({
-                    test: /\.m?js$/,
-                    sourceMap: true,
-                    uglifyOptions: {
-                        ecma: 6,
-                        output: {
-                            comments: false
-                        }
-                    }
-                })
-            }
-            else {
-                prodEsmConfig.optimization.minimizer[i] = new UglifyJsPlugin({
-                    test: /\.m?js$/,
-                    sourceMap: true,
-                    uglifyOptions: {
-                        ecma: 6,
-                        compress: {
-                            warnings: false,
-                            collapse_vars: false,
-                            sequences: false,
-                            comparisons: false,
-                            booleans: false,
-                            hoist_funs: false,
-                            join_vars: false,
-                            if_return: false,
-                            dead_code: true
-                        },
-                        mangle: false,
-                        output: {
-                            beautify: true,
-                            comments: false
-                        }
-                    }
-                });
-            }
-
-            return true;
-        }
-    });
 
     return prodEsmConfig;
 }
