@@ -1,3 +1,9 @@
+//---------------------------------------------------------------
+//
+// THIS CONFIGURATION WORKS ONLY WHEN USED FROM
+// AN NPM PACKAGE.JSON SCRIPT
+//
+//---------------------------------------------------------------
 const path          = require("path");
 const webpack       = require('webpack');
 const CWD           = path.resolve(process.cwd());
@@ -63,6 +69,7 @@ function getDevConfig() {
                     options: {
                         cache: true,
                         parser: "babel-eslint"
+                        // FIXME: auto-include local configuration
                     }
                 },
 
@@ -74,19 +81,20 @@ function getDevConfig() {
                     options: {
                         babelrc: false,
                         presets: [
-                            ["babel-preset-env", {
-                                modules: false,
-                                loose: true,
-                                targets: {
-                                    browsers: "last 2 Chrome versions"
+                            [
+                                "babel-preset-env",
+                                {
+                                    modules: false,
+                                    loose: true,
+                                    targets: {
+                                        browsers: "last 2 Firefox versions"
+                                    }
                                 }
-                            }]
+                            ]
                         ].map(localResolve),
                         plugins: [
-                            ["babel-plugin-transform-decorators-legacy"],
-                            ["babel-plugin-transform-builtin-classes", {
-                                "globals": ["Array", "Error", "HTMLElement"]
-                            }]
+                            // ES7 Decorators
+                            ["babel-plugin-transform-decorators-legacy"]
                         ].map(localResolve)
                     }
                 },
@@ -151,10 +159,12 @@ function getDevConfig() {
                     TIMESTAMP:  Date.now(),
                     HASH:       JSON.stringify(GIT_HASH)
                 }
-            }),
+            })
         ]
     };
 }
 
 module.exports = getDevConfig();
+
+// Expose a few methods with the config
 Object.defineProperty(module.exports, `getDevConfig`, {value: getDevConfig});

@@ -33,15 +33,21 @@ function getProdConfig(minified, defaultSetup) {
         prodConfig.output.filename = `${ process.env.npm_package_name }.min.js`;
     }
 
-    prodConfig.module.rules.some((rule, i) => {
-        if (rule.loader === "babel-loader") {
-            rule.options.presets = [
-                ["env", { "modules": false, targets: { "uglify": true } }]
-            ];
-
-            return true;
-        }
-    });
+    // prodConfig.module.rules.some((rule, i) => {
+    //     if (rule.loader === "babel-loader") {
+    //         rule.options.presets = [
+    //             ["env", { "modules": false, targets: { "uglify": true } }]
+    //         ];
+    //         rule.options.plugins.push(
+    //             [   // FIXME: remove this with babel 7 (its fixed there)
+    //                 "babel-plugin-transform-builtin-classes",
+    //                 { "globals": ["Array", "Error", "HTMLElement"] }
+    //             ]
+    //         );
+    //
+    //         return true;
+    //     }
+    // });
 
     prodConfig.plugins.unshift(
         new webpack.DefinePlugin({
@@ -51,8 +57,48 @@ function getProdConfig(minified, defaultSetup) {
         })
     );
 
-    // Using Uglify but not really minimizing code will result in a
-    // bundle that is "tree shaken"
+    //-------------------------------------------------------
+    // For all polyfills provided via `common-micro-libs`,
+    // replace them with the runtime Global
+    //-------------------------------------------------------
+    if (!prodConfig.externals) {
+        prodConfig.externals = [];
+    }
+    const IS_COMMON_MICRO_LIB = /common-micro-libs/;
+    prodConfig.externals.push(function (context, request, callback) {
+        if (IS_COMMON_MICRO_LIB.test(context) || IS_COMMON_MICRO_LIB.test(request)) {
+            // Map polyfill
+            if (/\/(es6-Map|Map)(\.js)?$/.test(request)) {
+                return callback(null, "root Map");
+            }
+
+            // Set polyfill
+            if (/\/(es6-Set|Set)(\.js)?$/.test(request)) {
+                return callback(null, "root Set");
+            }
+
+            // Set polyfill
+            if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
+                return callback(null, "root Promise");
+            }
+
+            // Symbol polyfill
+            if (/\/Symbol(\.js)?$/.test(request)) {
+                return callback(null, "root Symbol");
+            }
+
+            // WeakMap polyfill
+            if (/\/WeakMap(\.js)?$/.test(request)) {
+                return callback(null, "root WeakMap");
+            }
+        }
+
+        callback();
+    });
+
+    //----------------------------------------------------
+    // Adjust Uglify minifier options to output ES6
+    //----------------------------------------------------
     if (!prodConfig.optimization) {
         prodConfig.optimization = {};
     }
@@ -60,41 +106,45 @@ function getProdConfig(minified, defaultSetup) {
     prodConfig.optimization.minimizer = [];
 
     if (minified) {
-        prodConfig.optimization.minimizer.push(new UglifyJsPlugin({
-            sourceMap: true,
-            uglifyOptions: {
-                output: {
-                    comments: false
-                }
-            }
-        }));
-    }
-    else {
-        prodConfig.optimization.minimizer.push(new UglifyJsPlugin({
-            sourceMap: true,
-            uglifyOptions: {
-                compress: {
-                    warnings: false,
-                    collapse_vars: false,
-                    sequences: false,
-                    comparisons: false,
-                    booleans: false,
-                    hoist_funs: false,
-                    join_vars: false,
-                    if_return: false,
-                    dead_code: true
-                },
-                mangle: false,
-                output: {
-                    beautify: true,
-                    comments: function (nodeAst, commentAst) {
-                        // Keep comments that start with `++`
-                        const keep = /^\+\+/.test(commentAst.value);
-                        return keep;
+        prodConfig.optimization.minimizer.push(
+            new UglifyJsPlugin({
+                test: /\.m?js$/,
+                sourceMap: true,
+                uglifyOptions: {
+                    ecma: 6,
+                    output: {
+                        comments: false
                     }
                 }
-            }
-        }));
+            })
+        );
+    }
+    else {
+        prodConfig.optimization.minimizer.push(
+            new UglifyJsPlugin({
+                test: /\.m?js$/,
+                sourceMap: true,
+                uglifyOptions: {
+                    ecma: 6,
+                    compress: {
+                        warnings: false,
+                        collapse_vars: false,
+                        sequences: false,
+                        comparisons: false,
+                        booleans: false,
+                        hoist_funs: false,
+                        join_vars: false,
+                        if_return: false,
+                        dead_code: true
+                    },
+                    mangle: false,
+                    output: {
+                        beautify: true,
+                        comments: false
+                    }
+                }
+            })
+        );
     }
 
     prodConfig.plugins.push(
