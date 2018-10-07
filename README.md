@@ -1,30 +1,84 @@
 # project-base
 The project-base setup for most of my projects, including reusable scripts for common activities.
 
-## Usage
+## Install
 
 -   Add `project-base` to project 
 ```bash
 $ npm install purtuga/project-base#release/version-here
 ```
 
+## Usage
+
+### Builds
+
 -   Add project-base npm scripts to `package.json`
 ```bash
 $ ./node_modules/.bin/project-base-setup-package-scripts
 ```
 
+This will add several entries to `package.json` `scripts` section. They include all of the available build types and by default, `dist` is defined to generate a ESM bundle as well as Legacy bundle - minified versions only (with source maps). 
+
+Here are a list of available builds:
+
+-   `build` : Builds the development version. Almost no code transformations are done.
+-   `build:ie` : Builds a version of the software and saves it to `my.dev/` folder, for when testing in IE is needed.
+-   `build:prod` : Builds the Production ES6 versions of the project, which include a non-minified bundle as well as a minified bundle (with source maps). Meant to be consumed by modern runtimes. Bundles are wrapped with UMD loader code.
+-   `build:prod:min` : Build the production ES6 version of the project minified only (with source map). Meant to be consumed by modern runtimes. Bundles are wrapped with UMD loader code. 
+-   `build:prod:non-min` : Build the production ES6 version of the project non-minfied only (with source map).Meant to be consumed by modern runtimes. Note that only comments that start with `// ++` are kept in the file. Bundles are wrapped with UMD loader code.
+-   `build:prod:legacy` : Builds production ES5 (transpiled) versions of the project - both regular and minified versions.
+-   `build:prod:legacy:min` : Builds production ES5 (transpiled) verison of the project minified version.
+-   `build:prod:legacy:non-min` : Builds production ES5 (transpiled) verison of the project minified version. 
+-   `build:prod:esm` : Build an ESM version of the project. Generates both regular and minified bundles along with source maps
+-   `build:prod:esm:min` :  Build a Minified ESM version of the project (with source map)
+-   `build:prod:esm:non-min` :  Build a non-Minified ESM version of the project (with source map)
+-   `build:prod:wc` : Same as `build:prod:min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
+-   `build:prod:wc:min` : Same as `build:prod:min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
+-   `build:prod:wc:non-min` : Same as `build:prod:non-min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
+-   `build:apiDocs` : Generates JSDOCs from all files under `src/` folder.
+
+
 Other things that should be added to package.json:
 
+- If working on a nodeJS CLI project that needs esm support: 
 ```json
 {
     "esm": { "mode": "auto" }
 }
 ```
 
+#### Build Info. Available for Project Runtime
+
+The following is available for use in Project code:
+
+    BUILD.DATA = {
+        VERSION,
+        AUTHOR,
+        LICENSE,
+        NAME,
+        TIMESTAMP,
+        HASH
+    }
+
+In a JS file, the above can be used like this:
+
+```javascript
+export const VERSION = BUILD.DATA.VERSION; // eslint-disable-line
+```
+
+
+#### Importing CSS files as Strings
+
+tbd....
+    
+
 ## Configuration
 
 Configuration is done via the `project-base` entry in `package.json`. The following are supported:
 
+
+-   Web Components Polyfill Loading Wrapper:
+    Set to true if wanting the `build:prod` to be wrapped with code that ensure the runtime environment supports Web Components.
 ```json
 {
     "package-base": {
