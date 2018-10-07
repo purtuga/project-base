@@ -32,7 +32,7 @@ Here are a list of available builds:
 -   `build:prod:esm` : Build an ESM version of the project. Generates both regular and minified bundles along with source maps
 -   `build:prod:esm:min` :  Build a Minified ESM version of the project (with source map)
 -   `build:prod:esm:non-min` :  Build a non-Minified ESM version of the project (with source map)
--   `build:prod:wc` : Same as `build:prod:min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
+-   `build:prod:wc` : Same as `build:prod:min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry. By default, it assumes an entry file of `src/import.js`.
 -   `build:prod:wc:min` : Same as `build:prod:min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
 -   `build:prod:wc:non-min` : Same as `build:prod:non-min`, but wraps the bundle with code that ensure runtime supports Web Components. Best to be used with Web Components that auto-register themselves in CustomElementsRegistry.
 -   `build:apiDocs` : Generates JSDOCs from all files under `src/` folder.
