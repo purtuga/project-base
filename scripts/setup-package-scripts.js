@@ -46,6 +46,10 @@ Continue? Y|n  `, answer => {
             "build:prod:wc:min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.minified.js",
             "build:prod:wc:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.non-minified.js",
 
+            "build:prod:wc:legacy": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.js",
+            "build:prod:wc:legacy:min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.minified.js",
+            "build:prod:wc:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.non-minified.js",
+
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
 
             "dist": "npm run build:prod:min&&npm run build:prod:legacy:min&&npm run build:prod:esm:min",
