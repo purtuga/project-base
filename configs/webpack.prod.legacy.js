@@ -29,7 +29,7 @@ function getProdConfig(minified, defaultSetup) {
 
     prodConfig.name = `prod.legacy${ minified ? ".min" : ""}`;
     prodConfig.mode = "production";
-    prodConfig.output.filename = `${ process.env.npm_package_name }.legacy${ minified ? ".min" : "" }.js`;
+    prodConfig.output.filename = `${ process.env.npm_package_name }.legacy.umd${ minified ? ".min" : "" }.js`;
     prodConfig.module.rules.some((rule, i) => {
         if (rule.loader === "babel-loader") {
             rule.options.presets = [

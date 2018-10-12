@@ -5,7 +5,11 @@
 const path = require("path");
 const StatsPlugin = require('stats-webpack-plugin');
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
-const wcConfig = module.exports = require("./webpack.prod.legacy");
+const prodLegacyConfig = require("./webpack.prod.legacy");
+const wcConfig = module.exports = [
+    prodLegacyConfig.getProdConfig(),
+    prodLegacyConfig.getProdConfig(true)
+];
 const getStatsPluginsInstance = function (config) {
     return config.plugins.find(pluginInstance => pluginInstance instanceof StatsPlugin);
 };
