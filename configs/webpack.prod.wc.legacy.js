@@ -15,6 +15,10 @@ wcConfig[0].entry = wcConfig[1].entry = path.join(process.cwd(), "src", "import.
 wcConfig[0].output.filename = `${ process.env.npm_package_name }.import.legacy.js`;
 wcConfig[1].output.filename = `${ process.env.npm_package_name }.import.legacy.min.js`;
 
+// Name the configs
+wcConfig[0].name = "wc.legacy";
+wcConfig[1].name = "wc.legacy.min";
+
 // Remove UMD wrapper (not needed)
 wcConfig[0].output.library          = wcConfig[1].output.library = "__LIB";
 wcConfig[0].output.libraryTarget    = wcConfig[1].output.libraryTarget = "var";

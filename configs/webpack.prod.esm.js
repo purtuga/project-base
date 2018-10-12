@@ -9,6 +9,7 @@ const StatsPlugin = require('stats-webpack-plugin');
 function getProdEsmConfig(minified) {
     const prodEsmConfig = prodConfig.getProdConfig(minified, true);
 
+    prodEsmConfig.name = `esm${ minified ? ".min" : ""}`;
     prodEsmConfig.output.filename = `${ process.env.npm_package_name }.esm${ minified ? ".min" : ""}.js`;
     prodEsmConfig.output.library = "__LIB";
     prodEsmConfig.output.libraryTarget = "var";

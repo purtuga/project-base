@@ -28,6 +28,7 @@ function localResolve(preset) {
 
 function getDevConfig() {
     return {
+        name: "dev",
         mode: "development",
         entry: path.join(CWD, process.env.npm_package_main),
         output: {

@@ -25,34 +25,36 @@ Continue? Y|n  `, answer => {
     answer = String(answer).trim().toLowerCase();
     if (answer === "y" || !answer) {
         packageJson.scripts = {
-            "serve": "webpack-dev-server --config node_modules/project-base/configs/webpack.dev.js --progress --hot --color --entry ./my.dev/index.js",
+            "serve": "webpack-dev-server --config node_modules/project-base/configs/webpack.config.js --progress --hot --color --entry ./my.dev/index.js",
 
-            "build": "webpack --config node_modules/project-base/configs/webpack.dev.js",
-            "build:ie": "webpack --config node_modules/project-base/configs/webpack.dev.ie.js --entry ./my.dev/index.js --output-path ./my.dev --output-filename ie-test-bundle.js",
+            "build": "webpack --config node_modules/project-base/configs/webpack.config.js",
+            "build:ie": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.legacy.non-minified --entry ./my.dev/index.js --output-path ./my.dev --output-filename ie-test-bundle.js",
 
-            "build:prod": "webpack --config node_modules/project-base/configs/webpack.prod.js",
-            "build:prod:min": "webpack --config node_modules/project-base/configs/webpack.prod.minified.js",
-            "build:prod:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.non-minified.js",
+            "build:prod": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.minified --env.build=prod.non-minified",
+            "build:prod:min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.minified",
+            "build:prod:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --evn.build=prod.non-minified",
 
-            "build:prod:legacy": "webpack --config node_modules/project-base/configs/webpack.prod.legacy.js",
-            "build:prod:legacy:min": "webpack --config node_modules/project-base/configs/webpack.prod.legacy.minified.js",
-            "build:prod:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.legacy.non-minified.js",
+            "build:prod:legacy": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.legacy.minified --env.build=prod.legacy.non-minified",
+            "build:prod:legacy:min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.legacy.minified",
+            "build:prod:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.legacy.non-minified",
 
-            "build:prod:esm": "webpack --config node_modules/project-base/configs/webpack.prod.esm.js",
-            "build:prod:esm:min": "webpack --config node_modules/project-base/configs/webpack.prod.esm.minified.js",
-            "build:prod:esm:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.esm.non-minified.js",
+            "build:prod:esm": "webpack --config node_modules/project-base/configs/webpack.prod.esm.js --env.build=prod.esm.minified --env.build=prod.esm.non-minified",
+            "build:prod:esm:min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.esm.minified",
+            "build:prod:esm:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.esm.non-minified",
 
-            "build:prod:wc": "webpack --config node_modules/project-base/configs/webpack.prod.wc.js",
-            "build:prod:wc:min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.minified.js",
-            "build:prod:wc:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.non-minified.js",
+            "build:prod:wc": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.minified --env.build=prod.wc.non-minified",
+            "build:prod:wc:min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.minified",
+            "build:prod:wc:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.non-minified",
 
-            "build:prod:wc:legacy": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.js",
-            "build:prod:wc:legacy:min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.minified.js",
-            "build:prod:wc:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.prod.wc.legacy.non-minified.js",
+            "build:prod:wc:legacy": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.legacy.minified --env.build=prod.wc.legacy.non-minified",
+            "build:prod:wc:legacy:min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.legacy.minified",
+            "build:prod:wc:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.legacy.non-minified",
 
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
 
-            "dist": "npm run build:prod:min&&npm run build:prod:legacy:min&&npm run build:prod:esm:min",
+            "__dist": "npm run build:prod:min&&npm run build:prod:legacy:min&&npm run build:prod:esm:min",
+
+            "dist": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.minified --env.build=prod.legacy.minified --env.build=prod.esm.minified",
 
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
 

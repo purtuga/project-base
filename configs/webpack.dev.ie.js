@@ -1,4 +1,9 @@
-/**
- * Builds the bundle using the production non-minified configuration
- */
-module.exports = require("./webpack.prod")[0];
+module.exports = require("./webpack.prod.legacy.non-minified");
+console.warn(`
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+[WARN] DEPRECATED: ${__filename} is deprecated.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+`);
+// FIXME: Delete this file

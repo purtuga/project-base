@@ -27,6 +27,7 @@ if (process.env.npm_package_project_base_build_with_web_components_polyfill === 
 function getProdConfig(minified, defaultSetup) {
     const prodConfig = devConfig.getDevConfig();
 
+    prodConfig.name = `prod.legacy${ minified ? ".min" : ""}`;
     prodConfig.mode = "production";
     prodConfig.output.filename = `${ process.env.npm_package_name }.legacy${ minified ? ".min" : "" }.js`;
     prodConfig.module.rules.some((rule, i) => {

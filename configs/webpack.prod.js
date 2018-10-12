@@ -27,11 +27,9 @@ if (process.env.npm_package_project_base_build_with_web_components_polyfill === 
 function getProdConfig(minified, defaultSetup) {
     const prodConfig = devConfig.getDevConfig();
 
+    prodConfig.name = `prod.umd${ minified ? ".min" : ""}`;
     prodConfig.mode = "production";
-
-    if (minified) {
-        prodConfig.output.filename = `${ process.env.npm_package_name }.min.js`;
-    }
+    prodConfig.output.filename = `${ process.env.npm_package_name }.umd${ minified ? ".min" : ""}.js`;
 
     prodConfig.plugins.unshift(
         new webpack.DefinePlugin({
