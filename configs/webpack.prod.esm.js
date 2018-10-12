@@ -23,7 +23,7 @@ function getProdEsmConfig(minified) {
         }),
         ...devConfig.getDevConfig().plugins,
         new EsmWebpackPlugin(),
-        new StatsPlugin("../me.stats.json")
+        new StatsPlugin(`../me.webpack.stats.${ prodEsmConfig.name }.json`)
     ];
 
     return prodEsmConfig;

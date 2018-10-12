@@ -101,7 +101,7 @@ function getProdConfig(minified, defaultSetup) {
     }
 
     prodConfig.plugins.push(
-        new StatsPlugin("../me.stats.json")
+        new StatsPlugin(`../me.webpack.stats.${ prodConfig.name }.json`)
     );
 
     // If not getting the default setup, then add the

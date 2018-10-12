@@ -3,7 +3,7 @@
  * Adds the WebComponentsPolyfill plugin to the config.
  */
 const path = require("path");
-
+const StatsPlugin = require('stats-webpack-plugin');
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 const prodEsmConfig = require("./webpack.prod.esm");
@@ -16,6 +16,9 @@ const removeEsmPlugin = (plugin, i, arr) => {
         arr.splice(i, 1);
         return true;
     }
+};
+const getStatsPluginsInstance = function (config) {
+    return config.plugins.find(pluginInstance => pluginInstance instanceof StatsPlugin);
 };
 
 // Default Entry file to `src/import.js`
@@ -35,3 +38,7 @@ wcConfig[1].plugins.some(removeEsmPlugin);
 
 wcConfig[0].plugins.push(new WebComponentsPolyfill());
 wcConfig[1].plugins.push(new WebComponentsPolyfill());
+
+// Adjust stats output file name
+getStatsPluginsInstance(wcConfig[0]).output = `../me.webpack.stats.${ wcConfig[0].name }.json`;
+getStatsPluginsInstance(wcConfig[1]).output = `../me.webpack.stats.${ wcConfig[1].name }.json`;

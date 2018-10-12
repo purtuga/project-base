@@ -52,8 +52,6 @@ Continue? Y|n  `, answer => {
 
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
 
-            "__dist": "npm run build:prod:min&&npm run build:prod:legacy:min&&npm run build:prod:esm:min",
-
             "dist": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.minified --env.build=prod.legacy.minified --env.build=prod.esm.minified",
 
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
