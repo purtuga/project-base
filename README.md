@@ -77,17 +77,6 @@ tbd....
 Configuration is done via the `project-base` entry in `package.json`. The following are supported:
 
 
--   Web Components Polyfill Loading Wrapper:
-    Set to true if wanting the `build:prod` to be wrapped with code that ensure the runtime environment supports Web Components.
-```json
-{
-    "package-base": {
-        "build-with-web-components-polyfill": true
-    }
-}
-```
-
-
 ## Branches
 
 ### Master
@@ -105,4 +94,5 @@ Stable version... Project (for the most part) should reference these. When a ver
 ### To v2.x
 
 -   Default output is now ES6 code. ES5 transpiled code is output as a file named `*.legacy.*`
+-   All code will now be Linted using eslint and default config
 

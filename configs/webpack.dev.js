@@ -98,7 +98,9 @@ function getDevConfig() {
                         ].map(localResolve),
                         plugins: [
                             // ES7 Decorators
-                            ["babel-plugin-transform-decorators-legacy"]
+                            ["babel-plugin-transform-decorators-legacy"],
+                            // ES7 class Props
+                            ["babel-plugin-transform-class-properties", { "spec": false }]
                         ].map(localResolve)
                     }
                 },

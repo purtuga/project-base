@@ -33,11 +33,17 @@ function getProdConfig(minified, defaultSetup) {
     prodConfig.module.rules.some((rule, i) => {
         if (rule.loader === "babel-loader") {
             rule.options.presets = [
-                ["env", {"modules": false, targets: {"uglify": true}}]
+                [
+                    "env", {
+                        "modules": false,
+                        loose: true,
+                        targets: { "uglify": true }
+                    }
+                ]
             ];
             rule.options.plugins.push(
                 [
-                    "babel-plugin-transform-builtin-classes",
+                    "babel-plugin-transform-builtin-classes",   // FYI: Babel 7 should take care of this and thus it should be removed.
                     {"globals": ["Array", "Error", "HTMLElement"]}
                 ]
             );
