@@ -58,8 +58,8 @@ Continue? Y|n  `, answer => {
 
             "test": "tape -r esm test/**/*.js",
 
-            "lint": "eslint src/**/*.js",
-            "lint:fix": "eslint src/**/*.js --fix"
+            "lint": "eslint -c ./node_modules/project-base/configs/eslint.config.js src/**/*.js",
+            "lint:fix": "eslint -c ./node_modules/project-base/configs/eslint.config.js --fix src/**/*.js"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
