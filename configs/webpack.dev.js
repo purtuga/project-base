@@ -6,6 +6,7 @@
 //---------------------------------------------------------------
 const path          = require("path");
 const webpack       = require('webpack');
+const esLintConfig  = require("./eslint.config");
 const CWD           = path.resolve(process.cwd());
 const resolveOpt    = { paths: [ CWD ] };
 
@@ -51,13 +52,15 @@ function getDevConfig() {
             port: 0,
             open: true,
             watchContentBase: true,
-            overlay: true
+            overlay: true,
+            compress: true
         },
         resolve: {
             modules: [
                 path.resolve(CWD, "node_modules"),
                 "node_modules"
-            ]
+            ],
+            symlinks: false // Make `npm link`'d packages work as expected
         },
         module: {
             rules: [
@@ -67,10 +70,10 @@ function getDevConfig() {
                     test: /\.m?js$/,
                     exclude: /node_modules/,
                     loader: "eslint-loader",
-                    options: {
+                    options: { // For more, see: https://eslint.org/docs/developer-guide/nodejs-api#cliengine
                         cache: true,
-                        parser: "babel-eslint"
-                        // FIXME: auto-include local configuration
+                        parser: "babel-eslint",
+                        baseConfig: esLintConfig
                     }
                 },
 

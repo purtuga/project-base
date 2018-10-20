@@ -1,3 +1,15 @@
+//-----------------------------------------------------------------------------------------
+// This is the Base configuration used by the Webpack setup.
+//
+// For more on eslint configuration, see:
+// https://eslint.org/docs/user-guide/configuring
+//
+// If wanting to disable rules for certain files, see:
+// https://eslint.org/docs/user-guide/configuring#disabling-rules-only-for-a-group-of-files
+//
+// or use an ignore files:
+// https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories
+//-----------------------------------------------------------------------------------------
 module.exports = {
     "extends": [
         "eslint:recommended"
