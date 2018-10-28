@@ -47,7 +47,8 @@ function getDevConfig() {
             contentBase: [ // Server content from these directories
                 path.resolve(CWD, "dist"),
                 path.resolve(CWD, "dev"),   // FIXME: remove this in the future
-                path.resolve(CWD, "my.dev")
+                path.resolve(CWD, "my.dev"),
+                path.resolve(CWD)
             ],
             port: 0,
             open: true,

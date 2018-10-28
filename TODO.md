@@ -9,7 +9,7 @@
     - (DEFERRED) Move all webpack configs to a folder named 'webpack'
     - [x] Support --env.build=<value> for all available configs 
 - [x] Webpack Prod (ES6) bundle name should have `umd` in the file name
-- [ ] Webpack configs stats output should have outfile name in them
+- [x] Webpack configs stats output should have outfile name in them
 - [ ] Introduce support for configuration via package.json `project-base`
     - [X] Option to wrap bundle with WC loader
         - [ ] On second thought: remove this. There are specific webpack configs that should be used
@@ -25,7 +25,8 @@
 - [x] BUG: ESM build is missing BUILD.DATA definitions set by webpack.dev
 - [ ] Create script from where all tooling should be used (to avoid installs where tools might not be avialable in hosting project)
     script would be something like `project-base <command> [options]`
-
+- [ ] Babel: enable ES7 async/await
+- [ ] Webpack: enable static serving of files under the project
 
 ### Babel 7 Upgrade
 
