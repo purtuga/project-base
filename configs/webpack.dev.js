@@ -57,7 +57,7 @@ function getDevConfig() {
         },
         resolve: {
             modules: [
-                path.resolve(CWD, "node_modules"),
+                path.resolve(CWD, "node_modules"),  // If installed top-level - use that!
                 "node_modules"
             ],
             symlinks: false // Make `npm link`'d packages work as expected

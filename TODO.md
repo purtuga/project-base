@@ -23,6 +23,8 @@
 - [ ] Introduce project-base-init script: initialize a new project (maybe a yo generator?)
 - [x] Change eslint to auto-include config in /config/eslint.config.js
 - [x] BUG: ESM build is missing BUILD.DATA definitions set by webpack.dev
+- [ ] Create script from where all tooling should be used (to avoid installs where tools might not be avialable in hosting project)
+    script would be something like `project-base <command> [options]`
 
 
 ### Babel 7 Upgrade

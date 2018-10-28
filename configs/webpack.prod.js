@@ -68,7 +68,7 @@ function getProdConfig(minified, defaultSetup) {
 
             // Set polyfill
             if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
-                return callback(null, "root (Promise.Promise = Promise");
+                return callback(null, "root (Promise.Promise = Promise)");
             }
 
             // Symbol polyfill
