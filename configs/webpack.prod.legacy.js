@@ -36,7 +36,7 @@ function getProdConfig(minified, defaultSetup) {
                 [
                     "env", {
                         "modules": false,
-                        loose: true,
+                        loose: false,
                         targets: { "uglify": true }
                     }
                 ]
