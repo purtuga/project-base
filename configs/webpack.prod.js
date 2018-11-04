@@ -102,7 +102,11 @@ function getProdConfig(minified, defaultSetup) {
                 uglifyOptions: {
                     ecma: 6,
                     output: {
-                        comments: false
+                        comments: function (nodeAst, commentAst) {
+                            // Keep comments that start with `++`
+                            const keep = /^\+\+/.test(commentAst.value);
+                            return keep;
+                        }
                     }
                 }
             })
@@ -129,7 +133,11 @@ function getProdConfig(minified, defaultSetup) {
                     mangle: false,
                     output: {
                         beautify: true,
-                        comments: false
+                        comments: function (nodeAst, commentAst) {
+                            // Keep comments that start with `++`
+                            const keep = /^\s*\+\+/.test(commentAst.value);
+                            return keep;
+                        }
                     }
                 }
             })

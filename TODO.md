@@ -13,7 +13,6 @@
 - [ ] Introduce support for configuration via package.json `project-base`
     - [X] Option to wrap bundle with WC loader
         - [ ] On second thought: remove this. There are specific webpack configs that should be used
-    - [ ] Option to set build to NOT expose globals (app mode)
 - [x] Introduce eslint
     - [x] Add support to webpack Rules
     - [x] Add support to package scripts to run standalone

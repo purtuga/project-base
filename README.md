@@ -66,6 +66,21 @@ In a JS file, the above can be used like this:
 export const VERSION = BUILD.DATA.VERSION; // eslint-disable-line
 ```
 
+#### JS Comments
+
+By default, all builds strip out all comments from files, with the exception of those starting with `++`.
+Examples of comments that would be kept:
+```javascript
+//++ keep me
+
+//   ++ keep me
+
+/*++ keep me */
+
+/*   ++ keep me  */
+
+```
+
 
 #### Importing CSS files as Strings
 

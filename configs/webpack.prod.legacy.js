@@ -34,19 +34,14 @@ function getProdConfig(minified, defaultSetup) {
         if (rule.loader === "babel-loader") {
             rule.options.presets = [
                 [
-                    "env", {
-                        "modules": false,
+                    "@babel/preset-env",
+                    {
+                        modules: false,
                         loose: false,
-                        targets: { "uglify": true }
+                        forceAllTransforms: true
                     }
                 ]
             ];
-            rule.options.plugins.push(
-                [
-                    "babel-plugin-transform-builtin-classes",   // FYI: Babel 7 should take care of this and thus it should be removed.
-                    {"globals": ["Array", "Error", "HTMLElement"]}
-                ]
-            );
 
             return true;
         }
@@ -98,7 +93,7 @@ function getProdConfig(minified, defaultSetup) {
                     beautify: true,
                     comments: function (nodeAst, commentAst) {
                         // Keep comments that start with `++`
-                        const keep = /^\+\+/.test(commentAst.value);
+                        const keep = /^\s*\+\+/.test(commentAst.value);
                         return keep;
                     }
                 }

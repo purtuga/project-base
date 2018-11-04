@@ -8,7 +8,6 @@ const path          = require("path");
 const webpack       = require('webpack');
 const esLintConfig  = require("./eslint.config");
 const CWD           = path.resolve(process.cwd());
-const resolveOpt    = { paths: [ CWD ] };
 
 const PACKAGE_NAME      = process.env.npm_package_name;
 const PACKAGE_VERSION   = process.env.npm_package_version;
@@ -18,14 +17,6 @@ const PACKAGE_AUTHOR    = process.env.npm_package_author;
 const GIT_HASH = require("../scripts/getGitHash")();
 
 // console.log(CWD);
-
-function localResolve(preset) {
-    // console.log(`Path: ${ require.resolve(preset[0], resolveOpt) }`);
-
-    return Array.isArray(preset) ?
-        [require.resolve(preset[0], resolveOpt), preset[1]] :
-        require.resolve(preset, resolveOpt);
-}
 
 function getDevConfig() {
     return {
@@ -63,6 +54,7 @@ function getDevConfig() {
             ],
             symlinks: false // Make `npm link`'d packages work as expected
         },
+
         module: {
             rules: [
                 //---------------------------------[  pre loaders ]--
@@ -87,7 +79,7 @@ function getDevConfig() {
                         babelrc: false,
                         presets: [
                             [
-                                "babel-preset-env",
+                                "@babel/preset-env",
                                 {
                                     modules: false,
                                     loose: true,
@@ -96,13 +88,11 @@ function getDevConfig() {
                                     }
                                 }
                             ]
-                        ].map(localResolve),
+                        ],
                         plugins: [
-                            // ES7 Decorators
-                            ["babel-plugin-transform-decorators-legacy"],
-                            // ES7 class Props
-                            ["babel-plugin-transform-class-properties", { "spec": false }]
-                        ].map(localResolve)
+                            ["@babel/plugin-proposal-decorators", { decoratorsBeforeExport: false }],
+                            "@babel/plugin-proposal-class-properties"
+                        ]
                     }
                 },
                 {
