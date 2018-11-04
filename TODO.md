@@ -24,11 +24,11 @@
 - [x] BUG: ESM build is missing BUILD.DATA definitions set by webpack.dev
 - [ ] Create script from where all tooling should be used (to avoid installs where tools might not be avialable in hosting project)
     script would be something like `project-base <command> [options]`
-- [ ] Babel: enable ES7 async/await
+- [x] Babel: enable ES7 async/await
 - [ ] Webpack: enable static serving of files under the project
 
 ### Babel 7 Upgrade
 
-- [ ] Upgrade library
-- [ ] Upgrade plugins
-- [ ] Remove class builtin-classes transformations work-around
+- [x] Upgrade library
+- [x] Upgrade plugins
+- [x] Remove class builtin-classes transformations work-around
