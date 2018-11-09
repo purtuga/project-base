@@ -6,6 +6,7 @@ const path = require("path");
 const StatsPlugin = require('stats-webpack-plugin');
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
 const prodLegacyConfig = require("./webpack.prod.legacy");
+const PACKAGE_NAME = require("../lib/build.utils").PACKAGE_NAME;
 const wcConfig = module.exports = [
     prodLegacyConfig.getProdConfig(),
     prodLegacyConfig.getProdConfig(true)
@@ -18,8 +19,8 @@ const getStatsPluginsInstance = function (config) {
 wcConfig[0].entry = wcConfig[1].entry = path.join(process.cwd(), "src", "import.js");
 
 // Rename output bundles to include word `import`
-wcConfig[0].output.filename = `${ process.env.npm_package_name }.import.legacy.js`;
-wcConfig[1].output.filename = `${ process.env.npm_package_name }.import.legacy.min.js`;
+wcConfig[0].output.filename = `${ PACKAGE_NAME }.import.legacy.js`;
+wcConfig[1].output.filename = `${ PACKAGE_NAME }.import.legacy.min.js`;
 
 // Name the configs
 wcConfig[0].name = "wc.legacy";

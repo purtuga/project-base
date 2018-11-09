@@ -25,7 +25,7 @@
 - [ ] Create script from where all tooling should be used (to avoid installs where tools might not be avialable in hosting project)
     script would be something like `project-base <command> [options]`
 - [x] Babel: enable ES7 async/await
-- [ ] Webpack: enable static serving of files under the project
+- [x] Webpack: enable static serving of files under the project
 
 ### Babel 7 Upgrade
 

@@ -3,14 +3,14 @@ const prodConfig = require("./webpack.prod");
 const webpack = require("webpack");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 const StatsPlugin = require('stats-webpack-plugin');
-
+const PACKAGE_NAME      = require("../lib/build.utils").PACKAGE_NAME;
 //----------------------------------------------------------------------
 
 function getProdEsmConfig(minified) {
     const prodEsmConfig = prodConfig.getProdConfig(minified, true);
 
     prodEsmConfig.name = `esm${ minified ? ".min" : ""}`;
-    prodEsmConfig.output.filename = `${ process.env.npm_package_name }.esm${ minified ? ".min" : ""}.js`;
+    prodEsmConfig.output.filename = `${ PACKAGE_NAME }.esm${ minified ? ".min" : ""}.js`;
     prodEsmConfig.output.library = "__LIB";
     prodEsmConfig.output.libraryTarget = "var";
 

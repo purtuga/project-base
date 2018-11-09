@@ -91,6 +91,14 @@ tbd....
 
 Configuration is done via the `project-base` entry in `package.json`. The following are supported:
 
+```json5
+{
+    "project-base": {
+        "decorators-legacy": false  // Switch decorators and class props babel plugin to legacy mode
+    }
+}
+```
+
 
 ## Branches
 

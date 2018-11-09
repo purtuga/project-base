@@ -5,7 +5,7 @@ const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-
 const WrapperPlugin = require('wrapper-webpack-plugin');
 const devConfig = require("./webpack.dev");
 const globalScoping = require("../lib/browser.scope.globals");
-
+const PACKAGE_NAME      = require("../lib/build.utils").PACKAGE_NAME;
 //----------------------------------------------------------------------
 const plugins = [];
 
@@ -29,7 +29,7 @@ function getProdConfig(minified, defaultSetup) {
 
     prodConfig.name = `prod.legacy${ minified ? ".min" : ""}`;
     prodConfig.mode = "production";
-    prodConfig.output.filename = `${ process.env.npm_package_name }.legacy.umd${ minified ? ".min" : "" }.js`;
+    prodConfig.output.filename = `${ PACKAGE_NAME }.legacy.umd${ minified ? ".min" : "" }.js`;
     prodConfig.module.rules.some((rule, i) => {
         if (rule.loader === "babel-loader") {
             rule.options.presets = [

@@ -7,6 +7,7 @@ const StatsPlugin = require('stats-webpack-plugin');
 const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-plugin");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 const prodEsmConfig = require("./webpack.prod.esm");
+const PACKAGE_NAME = require("../lib/build.utils").PACKAGE_NAME;
 const wcConfig = module.exports = [
     prodEsmConfig.getProdEsmConfig(),
     prodEsmConfig.getProdEsmConfig(true)
@@ -29,8 +30,8 @@ wcConfig[0].name = "wc";
 wcConfig[1].name = "wc.min";
 
 // Rename output bundles to include word `import`
-wcConfig[0].output.filename = `${ process.env.npm_package_name }.import.js`;
-wcConfig[1].output.filename = `${ process.env.npm_package_name }.import.min.js`;
+wcConfig[0].output.filename = `${ PACKAGE_NAME }.import.js`;
+wcConfig[1].output.filename = `${ PACKAGE_NAME }.import.min.js`;
 
 // remove the ESM plugin
 wcConfig[0].plugins.some(removeEsmPlugin);

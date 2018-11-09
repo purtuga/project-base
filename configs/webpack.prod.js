@@ -5,6 +5,7 @@ const WebComponentsPolyfill = require("@purtuga/web-components-polyfill-webpack-
 const WrapperPlugin         = require('wrapper-webpack-plugin');
 const devConfig             = require("./webpack.dev");
 const globalScoping         = require("../lib/browser.scope.globals");
+const PACKAGE_NAME          = require("../lib/build.utils").PACKAGE_NAME;
 
 //----------------------------------------------------------------------
 const plugins = [];
@@ -29,7 +30,7 @@ function getProdConfig(minified, defaultSetup) {
 
     prodConfig.name = `prod.umd${ minified ? ".min" : ""}`;
     prodConfig.mode = "production";
-    prodConfig.output.filename = `${ process.env.npm_package_name }.umd${ minified ? ".min" : ""}.js`;
+    prodConfig.output.filename = `${ PACKAGE_NAME }.umd${ minified ? ".min" : ""}.js`;
 
     prodConfig.plugins.unshift(
         new webpack.DefinePlugin({

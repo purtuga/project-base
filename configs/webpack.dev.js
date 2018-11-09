@@ -9,7 +9,7 @@ const webpack       = require('webpack');
 const esLintConfig  = require("./eslint.config");
 const CWD           = path.resolve(process.cwd());
 
-const PACKAGE_NAME      = process.env.npm_package_name;
+const PACKAGE_NAME      = require("../lib/build.utils").PACKAGE_NAME;
 const PACKAGE_VERSION   = process.env.npm_package_version;
 const PACKAGE_LICENSE   = process.env.npm_package_license;
 const PACKAGE_AUTHOR    = process.env.npm_package_author;
@@ -19,6 +19,13 @@ const GIT_HASH = require("../scripts/getGitHash")();
 // console.log(CWD);
 
 function getDevConfig() {
+    let decoratorsLegacy = process.env.npm_package_project_base_decorators_legacy;
+    if ("string" === typeof decoratorsLegacy) {
+        decoratorsLegacy = decoratorsLegacy === true;
+    } else {
+        decoratorsLegacy = false;
+    }
+
     return {
         name: "dev",
         mode: "development",
@@ -91,8 +98,8 @@ function getDevConfig() {
                         ],
                         plugins: [
                             ["@babel/plugin-transform-async-to-generator"],
-                            ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                            ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+                            ["@babel/plugin-proposal-decorators", { "legacy": decoratorsLegacy, decoratorsBeforeExport: true }],
+                            ["@babel/plugin-proposal-class-properties", { "loose" : decoratorsLegacy }]
                         ]
                     }
                 },
