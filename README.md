@@ -66,6 +66,16 @@ In a JS file, the above can be used like this:
 export const VERSION = BUILD.DATA.VERSION; // eslint-disable-line
 ```
 
+#### Conditional code Based on Production/Development mode
+
+`process.env.NODE_ENV` can be used to include dev-only (or production only) code blocks through out a code base.
+
+```javascript
+if (process.env.NODE_ENV !== "production") {
+    console.warn("you are in dev mode!!!!");
+}
+```
+
 #### JS Comments
 
 By default, all builds strip out all comments from files, with the exception of those starting with `++`.

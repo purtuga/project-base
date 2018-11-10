@@ -30,5 +30,15 @@ module.exports = {
         "comma-dangle": ["error", "never"],
         "func-call-spacing": ["error", "never"],
         "no-trailing-spaces": "error"
-    }
+    },
+    overrides: [
+        {
+            files: ["*.test.js"],
+            globals: {
+                describe: true,
+                it: true,
+                expect: true
+            }
+        }
+    ]
 };
