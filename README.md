@@ -2,10 +2,9 @@
 The project-base setup for most of my projects, including reusable scripts for common activities.
 
 ## Install
-
--   Add `project-base` to project 
+ 
 ```bash
-$ npm install purtuga/project-base#release/version-here
+$ npm install @purtuga/project-base
 ```
 
 ## Usage
