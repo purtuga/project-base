@@ -1,0 +1,1 @@
+module.exports = require("project-base/configs/eslint.config");

@@ -1,4 +1,4 @@
-module.exports = require("./webpack.prod")[1];
+module.exports = require("./webpack.prod.legacy.non-minified");
 console.warn(`
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 

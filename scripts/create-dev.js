@@ -48,14 +48,6 @@ mkdir(devDir)
                             buildOutFile
                         })
                     );
-
-                    // return readFile(path.join(templateLoc, fileName), "utf8")
-                    //     .then(fileContent => {
-                    //         if (fileName === "index.html") {
-                    //             fileContent = fileContent.replace("_____PACKAGE_NAME_____", buildOutFile);
-                    //         }
-                    //         return writeFile(path.join(devDir, fileName), fileContent);
-                    //     });
                 })
         }, Promise.resolve());
     })
