@@ -21,7 +21,7 @@ const GIT_HASH = require("../scripts/getGitHash")();
 function getDevConfig() {
     let decoratorsLegacy = process.env.npm_package_project_base_decorators_legacy;
     if ("string" === typeof decoratorsLegacy) {
-        decoratorsLegacy = decoratorsLegacy === true;
+        decoratorsLegacy = decoratorsLegacy === "true";
     } else {
         decoratorsLegacy = false;
     }
