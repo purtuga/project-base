@@ -35,9 +35,11 @@ module.exports = {
         {
             files: ["*.test.js"],
             globals: {
-                describe: true,
-                it: true,
-                expect: true
+                expect: true,
+                sinon: true
+            },
+            env: {
+                mocha: true
             }
         }
     ]

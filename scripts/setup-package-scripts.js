@@ -26,6 +26,7 @@ Continue? Y|n  `, answer => {
     if (answer === "y" || !answer) {
         packageJson.scripts = {
             "serve": "webpack-dev-server --config node_modules/project-base/configs/webpack.config.js --progress --hot --color --entry ./my.dev/index.js",
+            "serve:test": "webpack-dev-server --config node_modules/project-base/configs/webpack.config.js --entry ./test/index.js --output-path ./my.dev --output-filename test.bundle.js",
 
             "build": "webpack --config node_modules/project-base/configs/webpack.config.js",
             "build:ie": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.legacy.non-minified --entry ./my.dev/index.js --output-path ./my.dev --output-filename ie-test-bundle.js",
@@ -51,12 +52,11 @@ Continue? Y|n  `, answer => {
             "build:prod:wc:legacy:non-min": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.wc.legacy.non-minified",
 
             "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
+            "build:test": "webpack --config node_modules/project-base/configs/webpack.config.js --entry ./test/index.js --output-path ./my.dev --output-filename test.bundle.js",
 
             "dist": "webpack --config node_modules/project-base/configs/webpack.config.js --env.build=prod.minified --env.build=prod.legacy.minified --env.build=prod.esm.minified",
 
             "setup:dev": "node node_modules/project-base/scripts/create-dev",
-
-            "test": "tape -r esm test/**/*.js",
 
             "lint": "eslint -c ./node_modules/project-base/configs/eslint.config.js src/**/*.js",
             "lint:fix": "eslint -c ./node_modules/project-base/configs/eslint.config.js --fix src/**/*.js"
