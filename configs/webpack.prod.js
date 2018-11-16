@@ -47,7 +47,7 @@ function getProdConfig(minified, defaultSetup) {
     if (!prodConfig.externals) {
         prodConfig.externals = [];
     }
-    const IS_COMMON_MICRO_LIB = /common-micro-libs/;
+    const IS_COMMON_MICRO_LIB = /(common-micro-libs|purtuga[\/\\]common)/;
     prodConfig.externals.push(function (context, request, callback) {
         // 2018-10-07
         // About the Exports below: Because the polyfills from common-micro-libs are available
