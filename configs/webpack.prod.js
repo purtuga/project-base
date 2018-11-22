@@ -59,27 +59,27 @@ function getProdConfig(minified, defaultSetup) {
         if (IS_COMMON_MICRO_LIB.test(context) || IS_COMMON_MICRO_LIB.test(request)) {
             // Map polyfill
             if (/\/(es6-Map|Map)(\.js)?$/.test(request)) {
-                return callback(null, "root (Map.Map = Map)");
+                return callback(null, "root (window.Map.Map = window.Map)");
             }
 
             // Set polyfill
             if (/\/(es6-Set|Set)(\.js)?$/.test(request)) {
-                return callback(null, "root (Set.Set = Set)");
+                return callback(null, "root (window.Set.Set = window.Set)");
             }
 
             // Set polyfill
             if (/\/(es6-promise|Promise)(\.js)?$/.test(request)) {
-                return callback(null, "root (Promise.Promise = Promise)");
+                return callback(null, "root (window.Promise.Promise = window.Promise)");
             }
 
             // Symbol polyfill
             if (/\/Symbol(\.js)?$/.test(request)) {
-                return callback(null, "root (Symbol.Symbol = Symbol)");
+                return callback(null, "root (window.Symbol.Symbol = window.Symbol)");
             }
 
             // WeakMap polyfill
             if (/\/WeakMap(\.js)?$/.test(request)) {
-                return callback(null, "root (WeakMap.WeakMap = WeakMap)");
+                return callback(null, "root (window.WeakMap.WeakMap = window.WeakMap)");
             }
         }
 
