@@ -59,7 +59,9 @@ Continue? Y|n  `, answer => {
             "setup:dev": "node node_modules/@purtuga/project-base/scripts/create-dev",
 
             "lint": "eslint -c ./node_modules/@purtuga/project-base/configs/eslint.config.js src/**/*.js",
-            "lint:fix": "eslint -c ./node_modules/@purtuga/project-base/configs/eslint.config.js --fix src/**/*.js"
+            "lint:fix": "eslint -c ./node_modules/@purtuga/project-base/configs/eslint.config.js --fix src/**/*.js",
+
+            "version": "npm run dist&&git add dist/*"
         };
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
