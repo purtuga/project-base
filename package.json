@@ -1,6 +1,6 @@
 {
   "name": "@purtuga/project-base",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "My personal projects Base setup and scripts",
   "main": "index.js",
   "scripts": {
