@@ -24,7 +24,7 @@ This will replace your existing package.json script section.
 Continue? Y|n  `, answer => {
     answer = String(answer).trim().toLowerCase();
     if (answer === "y" || !answer) {
-        packageJson.scripts = {
+        packageJson.scripts = Object.assign(packageJson.scripts || {}, {
             "serve": "webpack-dev-server --config node_modules/@purtuga/project-base/configs/webpack.config.js --progress --hot --color --entry ./my.dev/index.js",
             "serve:test": "webpack-dev-server --config node_modules/@purtuga/project-base/configs/webpack.config.js --entry ./test/index.js --output-path ./my.dev --output-filename test.bundle.js",
 
@@ -62,7 +62,7 @@ Continue? Y|n  `, answer => {
             "lint:fix": "eslint -c ./node_modules/@purtuga/project-base/configs/eslint.config.js --fix src/**/*.js",
 
             "version": "npm run dist&&git add dist/*"
-        };
+        });
 
         writeFile(packageJsonFile, JSON.stringify(packageJson, null, 4)).then(() => {
             console.log(`
