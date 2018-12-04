@@ -123,6 +123,9 @@ function getDevConfig() {
                         ]
                     }
                 },
+
+                // FIXME: use webpack's `oneOf` definitions for .less/.css files to support `as-string`
+
                 {
                     test: /\.less$/,
                     use: [
