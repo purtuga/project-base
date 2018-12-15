@@ -26,6 +26,7 @@
     script would be something like `project-base <command> [options]`
 - [x] Babel: enable ES7 async/await
 - [x] Webpack: enable static serving of files under the project
+- [ ] Webpack: builds for ESM/WC - should the global wrapper be added? (smaller chunks)
 
 ### Babel 7 Upgrade
 

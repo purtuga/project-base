@@ -93,8 +93,16 @@ Examples of comments that would be kept:
 
 #### Importing CSS files as Strings
 
-tbd....
-    
+Importing of Styles are supported as both `.less` and `.css`. By default, the `style-loader` is used which loads the styles into the document using a `<style>` tag. Optionally, an query param of `inline` can be used to instead return the styles as a string to the JS module. Example:
+
+```javascript
+/* styles into document using style tag */
+import "./styles/default-styles.less";
+
+/* Styles return to this module as a string */
+import messageStyles from "./styles/message-styles.css?inline";
+``` 
+
 
 ## Configuration
 

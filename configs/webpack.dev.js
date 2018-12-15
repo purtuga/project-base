@@ -124,39 +124,71 @@ function getDevConfig() {
                     }
                 },
 
-                // FIXME: use webpack's `oneOf` definitions for .less/.css files to support `as-string`
-
                 {
                     test: /\.less$/,
-                    use: [
-                        "style-loader",
-                        "css-loader",
-                        "less-loader"
-                    ]
-                },
-                {   // CSS FILES THAT SHOULD BE RETURNED BACK AS A STRING
-                    // (INSTEAD OF BEING SENT/EMBEDED INTO THE PAGE AS <STYLE> TAGS
-                    // IDEAL FOR USE WITH WEB COMPONENTS THAT USE SHADOW DOM
-                    test: /\.toString\.css$/,
-                    use: [
-                        "to-string-loader",
+                    oneOf: [
+                        // inline or toString
+                        // Return instead the stylesheet as a string
                         {
-                            loader: "css-loader",
-                            options: {
-                                camelCase: true
-                            }
+                            resourceQuery: /(inline|toString|asString|as-string)/i,
+                            use: [
+                                "to-string-loader",
+                                {
+                                    loader: "css-loader",
+                                    options: {
+                                        camelCase: true
+                                    }
+                                },
+                                "less-loader"
+                            ]
+                        },
+                        // ELSE, just use the regular style loader (style tag in document)
+                        {
+                            use: [
+                                "style-loader",
+                                "css-loader",
+                                "less-loader"
+                            ]
                         }
                     ]
                 },
                 {
-                    test: /^(?!.*toString\.css$).*\.css$/,
-                    use: [
-                        "style-loader",
-                        {
-                            loader: "css-loader",
-                            options: {
-                                camelCase: true
-                            }
+                    test: /\.css$/,
+                    oneOf: [
+                        {   // OLD style that required naming file a special way
+                            test: [/\.toString\.css$/],
+                            use: [
+                                "to-string-loader",
+                                {
+                                    loader: "css-loader",
+                                    options: {
+                                        camelCase: true
+                                    }
+                                }
+                            ]
+                        },
+                        {   // If Query (?) has any of these, return string
+                            resourceQuery: /(inline|toString|asString|as-string)/i,
+                            use: [
+                                "to-string-loader",
+                                {
+                                    loader: "css-loader",
+                                    options: {
+                                        camelCase: true
+                                    }
+                                }
+                            ]
+                        },
+                        {   // DEFAULT: style tag load into the document
+                            use: [
+                                "style-loader",
+                                {
+                                    loader: "css-loader",
+                                    options: {
+                                        camelCase: true
+                                    }
+                                }
+                            ]
                         }
                     ]
                 },
