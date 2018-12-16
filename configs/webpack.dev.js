@@ -114,7 +114,7 @@ function getDevConfig() {
                     loader: "babel-loader",
                     include: includeProjectFileOrNodeModuleException,
                     options: {
-                        cache: true,
+                        cacheDirectory: true,
                         babelrc: false,
                         presets: [
                             [
