@@ -7,16 +7,46 @@
 const path          = require("path");
 const webpack       = require('webpack');
 const esLintConfig  = require("./eslint.config");
-const CWD           = path.resolve(process.cwd());
 
 const PACKAGE_NAME      = require("../lib/build.utils").PACKAGE_NAME;
 const PACKAGE_VERSION   = process.env.npm_package_version;
 const PACKAGE_LICENSE   = process.env.npm_package_license;
 const PACKAGE_AUTHOR    = process.env.npm_package_author;
 
-const GIT_HASH = require("../scripts/getGitHash")();
+const GIT_HASH              = require("../scripts/getGitHash")();
+const CWD                   = path.resolve(process.cwd());
+const CWD_NODE_MODULES      = path.join(CWD, "node_modules");
+const INCLUDE_EXCEPTIONS    = [
+    path.resolve(CWD, "node_modules/@purtuga")
+];
 
-// console.log(CWD);
+
+//========================================================================
+
+// get the loader include exceptions
+if (process.env.npm_package_project_base_loader_includes_0) {
+    const packageJson = require(path.join(CWD, "package.json"));
+    packageJson["project-base"]["loader-includes"]
+        .forEach(exceptionPath => INCLUDE_EXCEPTIONS.push(path.resolve(CWD, exceptionPath)));
+}
+
+
+/**
+ * Determines what should be included in a `module.rule`. By default, all files under
+ * the project's root (CWD because its being run via `npm run`) will be included, as
+ * well as all files under `node_modules/@purtuga` namespace.
+ * Used as the `module.rule[].include` value.
+ * @private
+ * @param resource
+ * @returns {*|boolean}
+ */
+function includeProjectFileOrNodeModuleException(resource) {
+    return resource.startsWith(CWD) &&
+        (
+            !resource.startsWith(CWD_NODE_MODULES) ||
+            INCLUDE_EXCEPTIONS.some(exceptionPath => resource.startsWith(exceptionPath))
+        );
+}
 
 function getDevConfig() {
     let decoratorsLegacy = process.env.npm_package_project_base_decorators_legacy;
@@ -80,9 +110,11 @@ function getDevConfig() {
 
                 //---------------------------------[ normal loaders ]--
                 {
-                    test:   /\.js$/,
+                    test:   /\.m?js$/,
                     loader: "babel-loader",
+                    include: includeProjectFileOrNodeModuleException,
                     options: {
+                        cache: true,
                         babelrc: false,
                         presets: [
                             [

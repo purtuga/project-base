@@ -106,12 +106,22 @@ import messageStyles from "./styles/message-styles.css?inline";
 
 ## Configuration
 
-Configuration is done via the `project-base` entry in `package.json`. The following are supported:
+Configuration is done via the `project-base` entry in `package.json`. 
+
+The following are supported:
 
 ```json5
 {
     "project-base": {
-        "decorators-legacy": false  // Switch decorators and class props babel plugin to legacy mode
+         // Switch decorators and class props babel plugin to legacy mode
+        "decorators-legacy": false,
+
+        // List of files (modules) to include in Loader transformations.
+        // All relative to the project root. Currently used only by Babel setup.
+        // By default, `node_modules/@purtuga` modules are included.
+        "loader-includes": [
+            "node_modules/@purtuga"
+        ]
     }
 }
 ```
