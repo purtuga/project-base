@@ -11,7 +11,7 @@ const esLintConfig  = require("./eslint.config");
 const PACKAGE_NAME      = require("../lib/build.utils").PACKAGE_NAME;
 const PACKAGE_VERSION   = process.env.npm_package_version;
 const PACKAGE_LICENSE   = process.env.npm_package_license;
-const PACKAGE_AUTHOR    = process.env.npm_package_author;
+const PACKAGE_AUTHOR    = process.env.npm_package_author_name;
 
 const GIT_HASH              = require("../scripts/getGitHash")();
 const CWD                   = path.resolve(process.cwd());
